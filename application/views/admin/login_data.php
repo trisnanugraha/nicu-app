@@ -29,7 +29,7 @@
         <a href="<?php echo base_url(); ?>" class="h1"><b><?php echo $aplikasi->nama_aplikasi; ?></b></a>
       </div>
       <div class="card-body">
-        <p class="login-box-msg">Silakan masuk untuk akses <?php echo $aplikasi->nama_aplikasi; ?></p>
+        <p class="login-box-msg">Selamat Datang di Dashboard IMEI</p>
         <form action="" role="form" id="quickForm" method="post">
           <label for="username">Username</label>
           <div class="input-group mb-3 kosong">
