@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/index.php/$1 [L]
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
+
+<IfModule mod_env.c>
+    SetEnv CI_ENV development
+</IfModule>
