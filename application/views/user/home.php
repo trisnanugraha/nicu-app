@@ -19,7 +19,6 @@
                   <th>No</th>
                   <th>Nama Lengkap</th>
                   <th>Username</th>
-                  <th>Angkatan</th>
                   <th>Hak Akses</th>
                   <th>Status</th>
                   <th>Aksi</th>

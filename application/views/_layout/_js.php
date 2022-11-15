@@ -1,25 +1,3 @@
-<!-- Pusher -->
-<script src="https://js.pusher.com/7.2/pusher.min.js"></script>
-<script>
-  // Enable pusher logging - don't include this in production
-  Pusher.logToConsole = true;
-
-  var pusher = new Pusher('94e738be52d211218601', {
-    cluster: 'ap1'
-  });
-
-  var channel = pusher.subscribe('my-channel');
-  channel.bind('my-event', function(data) {
-    xhr = $.ajax({
-      method: "POST",
-      url: "<?= base_url('notification/list_notification') ?>",
-      success: function(response) {
-
-      }
-    })
-  });
-</script>
-
 <!-- jQuery UI 1.11.4 -->
 <script src="<?php echo base_url(); ?>assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

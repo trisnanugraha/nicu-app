@@ -70,10 +70,10 @@
 
             <!-- /.col -->
           </div>
-          <br>
+          <!-- <br>
           <p class="mb-1 text-center">
             <a href="<?php echo base_url('register'); ?>">Belum Punya Akun? Daftar Gratis</a>
-          </p>
+          </p> -->
         </form>
 
 

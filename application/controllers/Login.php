@@ -47,7 +47,6 @@ class Login extends CI_Controller
                         'username'    => ucfirst($db->username),
                         'user_name'    => $db->username,
                         'full_name'   => ucfirst($db->full_name),
-                        'nim_nrp' => $db->nim_nrp,
                         'password'    => $db->password,
                         'id_level'    => $db->id_level,
                         'aplikasi'    => $apl->nama_aplikasi,
@@ -64,15 +63,9 @@ class Login extends CI_Controller
                     if ($checklevel == 'Admin') {
                         helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
                         $data['url'] = 'dashboard';
-                    } else if ($checklevel == 'Mahasiswa') {
+                    } else if ($checklevel == 'Manufaktur') {
                         helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
-                        $data['url'] = 'permohonan-surat';
-                    } else if ($checklevel == 'Staff Korwa') {
-                        helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
-                        $data['url'] = 'surat-perintah';
-                    } else {
-                        helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
-                        $data['url'] = 'validasi-surat';
+                        $data['url'] = 'data-imei';
                     }
                     $this->fungsi->send_bot($db->username, "Berhasil Masuk Ke Sistem", "LOGIN");
                     $data['status'] = TRUE;

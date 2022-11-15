@@ -13,4 +13,5 @@ $route['kotak-surat'] = 'Kotaksurat/index';
 // $route['kotak-surat/print'] = 'Kotaksurat/print';
 $route['surat-perintah'] = 'Suratperintah/index';
 $route['surat-perintah/send'] = 'Suratperintah/send';
+$route['data-imei'] = 'Dataimei/index';
 

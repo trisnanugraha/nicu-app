@@ -8,9 +8,9 @@ class Mod_user extends CI_Model
 {
 
     var $table = 'tbl_user';
-    var $column_order = array('', 'full_name', 'username', 'nama_angkatan', 'nama_level', 'is_active');
-    var $column_search = array('full_name', 'username', 'nama_angkatan', 'nama_level', 'is_active');
-    var $order = array('id_user' => 'desc'); // default order 
+    var $column_order = array('', 'full_name', 'username', 'nama_level', 'is_active');
+    var $column_search = array('full_name', 'username', 'nama_level', 'is_active');
+    var $order = array('id_user' => 'desc'); // default order
 
     public function __construct()
     {
@@ -18,16 +18,14 @@ class Mod_user extends CI_Model
         $this->load->database();
     }
 
-    private function _get_datatables_query($id_level)
+    private function _get_datatables_query()
     {
-        $this->db->select('a.*,b.nama_level,c.nama_angkatan as angkatan');
+        $this->db->select('a.*,b.nama_level');
         $this->db->join('tbl_userlevel b', 'a.id_level=b.id_level');
-        $this->db->join('tbl_angkatan c', 'a.id_angkatan=c.id_angkatan');
         $this->db->from('tbl_user a');
-        $this->db->where('b.id_level !=', $id_level);
         $i = 0;
 
-        foreach ($this->column_search as $item) // loop column 
+        foreach ($this->column_search as $item) // loop column
         {
             if ($_POST['search']['value']) // if datatable send POST for search
             {
@@ -55,18 +53,18 @@ class Mod_user extends CI_Model
         }
     }
 
-    function get_datatables($id_level)
+    function get_datatables()
     {
-        $this->_get_datatables_query($id_level);
+        $this->_get_datatables_query();
         if ($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
 
-    function count_filtered($id_level)
+    function count_filtered()
     {
-        $this->_get_datatables_query($id_level);
+        $this->_get_datatables_query();
         $query = $this->db->get();
         return $query->num_rows();
     }

@@ -12,10 +12,6 @@ class User extends MY_Controller
         parent::__construct();
         $this->load->model('Mod_user');
         $this->load->model('Mod_userlevel');
-        $this->load->model('Mod_kelas');
-        $this->load->model('Mod_sindikat');
-        $this->load->model('Mod_angkatan');
-        $this->load->model('Mod_jabatan');
         $this->load->model('Mod_import');
     }
 
@@ -25,10 +21,6 @@ class User extends MY_Controller
         $data['judul'] = 'Manajemen User';
         $data['user'] = $this->Mod_user->getAll();
         $data['user_level'] = $this->Mod_user->userlevel();
-        $data['kelas'] = $this->Mod_kelas->get_all_kelas();
-        $data['sindikat'] = $this->Mod_sindikat->get_all_sindikat();
-        $data['angkatan'] = $this->Mod_angkatan->get_all_angkatan();
-        $data['jabatan'] = $this->Mod_jabatan->get_all_jabatan();
         $data['modal_tambah_user'] = show_my_modal('user/modal_tambah_user', $data);
         $js = $this->load->view('user/user-js', null, true);
         $this->template->views('user/home', $data, $js);
@@ -38,8 +30,7 @@ class User extends MY_Controller
     {
         ini_set('memory_limit', '512M');
         set_time_limit(3600);
-        $hak_akses = $this->Mod_userlevel->getId('Mahasiswa');
-        $list = $this->Mod_user->get_datatables($hak_akses->id_level);
+        $list = $this->Mod_user->get_datatables();
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $user) {
@@ -48,7 +39,6 @@ class User extends MY_Controller
             $row[] = $no;
             $row[] = $user->full_name;
             $row[] = $user->username;
-            $row[] = $user->angkatan;
             $row[] = $user->nama_level;
             $row[] = $user->is_active;
             $row[] = $user->id_user;
@@ -58,7 +48,7 @@ class User extends MY_Controller
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->Mod_user->count_all(),
-            "recordsFiltered" => $this->Mod_user->count_filtered($hak_akses->id_level),
+            "recordsFiltered" => $this->Mod_user->count_filtered(),
             "data" => $data,
         );
         //output to json format
@@ -67,39 +57,15 @@ class User extends MY_Controller
 
     public function insert()
     {
-        // var_dump($this->input->post('username'));
-        if ($this->input->post('level') == '') {
-            $this->_validateFirst();
-        } else {
-            $checklevel = $this->Mod_userlevel->getUserlevel($this->input->post('level'));
-            $this->_validate($checklevel);
-        }
+        $this->_validate();
 
-        if ($checklevel->nama_level != 'Mahasiswa') {
-            $save  = array(
-                'username' => $this->input->post('username'),
-                'full_name' => $this->input->post('full_name'),
-                'password'  => get_hash($this->input->post('password')),
-                'id_angkatan'  => 5,
-                'id_kelas'  => 4,
-                'id_sindikat'  => 8,
-                'id_jabatan'  => $this->input->post('jabatan'),
-                'id_level'  => $this->input->post('level'),
-                'is_active' => $this->input->post('is_active')
-            );
-        } else {
-            $save  = array(
-                'username' => $this->input->post('username'),
-                'full_name' => $this->input->post('full_name'),
-                'password'  => get_hash($this->input->post('password')),
-                'id_angkatan'  => $this->input->post('angkatan'),
-                'id_kelas'  => $this->input->post('kelas'),
-                'id_sindikat'  => $this->input->post('sindikat'),
-                'id_jabatan'  => 8,
-                'id_level'  => $this->input->post('level'),
-                'is_active' => $this->input->post('is_active')
-            );
-        }
+        $save  = array(
+            'username' => $this->input->post('username'),
+            'full_name' => $this->input->post('full_name'),
+            'password'  => get_hash($this->input->post('password')),
+            'id_level'  => $this->input->post('level'),
+            'is_active' => $this->input->post('is_active')
+        );
         $this->Mod_user->insert($save);
         echo json_encode(array("status" => TRUE));
     }
@@ -128,53 +94,20 @@ class User extends MY_Controller
         $checklevel = $this->Mod_userlevel->getUserlevel($this->input->post('level'));
         //Jika Password tidak kosong
         if ($this->input->post('password')) {
-            if ($checklevel->nama_level != 'Mahasiswa') {
-                $save  = array(
-                    'username' => $this->input->post('username'),
-                    'full_name' => $this->input->post('full_name'),
-                    'password'  => get_hash($this->input->post('password')),
-                    'id_kelas'  => 4,
-                    'id_sindikat'  => 8,
-                    'id_jabatan'  => $this->input->post('jabatan'),
-                    'id_level'  => $this->input->post('level'),
-                    'is_active' => $this->input->post('is_active')
-                );
-            } else {
-                $save  = array(
-                    'username' => $this->input->post('username'),
-                    'full_name' => $this->input->post('full_name'),
-                    'password'  => get_hash($this->input->post('password')),
-                    'id_angkatan'  => $this->input->post('angkatan'),
-                    'id_kelas'  => $this->input->post('kelas'),
-                    'id_sindikat'  => $this->input->post('sindikat'),
-                    'id_jabatan'  => 8,
-                    'id_level'  => $this->input->post('level'),
-                    'is_active' => $this->input->post('is_active')
-                );
-            }
+            $save  = array(
+                'username' => $this->input->post('username'),
+                'full_name' => $this->input->post('full_name'),
+                'password'  => get_hash($this->input->post('password')),
+                'id_level'  => $this->input->post('level'),
+                'is_active' => $this->input->post('is_active')
+            );
         } else { //Jika password kosong
-            if ($checklevel->nama_level != 'Mahasiswa') {
-                $save  = array(
-                    'username' => $this->input->post('username'),
-                    'full_name' => $this->input->post('full_name'),
-                    'id_kelas'  => 4,
-                    'id_sindikat'  => 8,
-                    'id_jabatan'  => $this->input->post('jabatan'),
-                    'id_level'  => $this->input->post('level'),
-                    'is_active' => $this->input->post('is_active')
-                );
-            } else {
-                $save  = array(
-                    'username' => $this->input->post('username'),
-                    'full_name' => $this->input->post('full_name'),
-                    'id_angkatan'  => $this->input->post('angkatan'),
-                    'id_kelas'  => $this->input->post('kelas'),
-                    'id_sindikat'  => $this->input->post('sindikat'),
-                    'id_jabatan'  => 8,
-                    'id_level'  => $this->input->post('level'),
-                    'is_active' => $this->input->post('is_active')
-                );
-            }
+            $save  = array(
+                'username' => $this->input->post('username'),
+                'full_name' => $this->input->post('full_name'),
+                'id_level'  => $this->input->post('level'),
+                'is_active' => $this->input->post('is_active')
+            );
         }
 
         $this->Mod_user->update($id, $save);
@@ -204,9 +137,9 @@ class User extends MY_Controller
     {
         $id = $this->input->post('id');
 
-        if($this->input->post('status') == 'N'){
+        if ($this->input->post('status') == 'N') {
             $status = 'Y';
-        } else if($this->input->post('status') == 'Y') {
+        } else if ($this->input->post('status') == 'Y') {
             $status = 'N';
         }
 
@@ -255,7 +188,7 @@ class User extends MY_Controller
     }
 
 
-    private function _validate($level)
+    private function _validate()
     {
         $data = array();
         $data['error_string'] = array();
@@ -277,89 +210,6 @@ class User extends MY_Controller
         if ($this->input->post('password') == '') {
             $data['inputerror'][] = 'password';
             $data['error_string'][] = 'Password Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
-
-        if ($level != '' && $level->nama_level != 'Mahasiswa') {
-            if ($this->input->post('jabatan') == '') {
-                $data['inputerror'][] = 'jabatan';
-                $data['error_string'][] = 'Jabatan Tidak Boleh Kosong';
-                $data['status'] = FALSE;
-            }
-        }
-
-        if ($level->nama_level == 'Mahasiswa') {
-            if ($this->input->post('kelas') == '') {
-                $data['inputerror'][] = 'kelas';
-                $data['error_string'][] = 'Kelas Tidak Boleh Kosong';
-                $data['status'] = FALSE;
-            }
-
-            if ($this->input->post('sindikat') == '') {
-                $data['inputerror'][] = 'sindikat';
-                $data['error_string'][] = 'Sindikat Tidak Boleh Kosong';
-                $data['status'] = FALSE;
-            }
-        }
-
-        if ($this->input->post('is_active') == '') {
-            $data['inputerror'][] = 'is_active';
-            $data['error_string'][] = 'Status Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
-
-        if ($this->input->post('level') == '') {
-            $data['inputerror'][] = 'level';
-            $data['error_string'][] = 'Hak Akses Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
-
-        if ($data['status'] === FALSE) {
-            echo json_encode($data);
-            exit();
-        }
-    }
-
-    private function _validateFirst()
-    {
-        $data = array();
-        $data['error_string'] = array();
-        $data['inputerror'] = array();
-        $data['status'] = TRUE;
-
-        if ($this->input->post('username') == '') {
-            $data['inputerror'][] = 'username';
-            $data['error_string'][] = 'Username Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
-
-        if ($this->input->post('full_name') == '') {
-            $data['inputerror'][] = 'full_name';
-            $data['error_string'][] = 'Nama Lengkap Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
-
-        if ($this->input->post('password') == '') {
-            $data['inputerror'][] = 'password';
-            $data['error_string'][] = 'Password Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
-
-        if ($this->input->post('kelas') == '') {
-            $data['inputerror'][] = 'kelas';
-            $data['error_string'][] = 'Kelas Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
-
-        if ($this->input->post('sindikat') == '') {
-            $data['inputerror'][] = 'sindikat';
-            $data['error_string'][] = 'Sindikat Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
-
-        if ($this->input->post('jabatan') == '') {
-            $data['inputerror'][] = 'jabatan';
-            $data['error_string'][] = 'Jabatan Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 
