@@ -11,7 +11,6 @@ class Dashboard extends MY_Controller
         $this->load->library('user_agent');
         $this->load->helper('myfunction_helper');
         $this->load->model('Mod_user');
-        $this->load->model('Mod_aktivasi_user');
         $this->load->model('Mod_userlevel');
         $this->load->model('Mod_dashboard');
         $this->load->model('Mod_log');
@@ -24,7 +23,6 @@ class Dashboard extends MY_Controller
     {
         $data['judul'] = 'Dashboard';
         $data['user'] = $this->Mod_user->total_rows();
-        $data['pendinguser'] = $this->Mod_aktivasi_user->total_rows();
 
         $logged_in = $this->session->userdata('logged_in');
         if ($logged_in != TRUE || empty($logged_in)) {

@@ -13,7 +13,31 @@
             <div class="modal-body form">
                 <form action="#" id="form" class="form-horizontal">
                     <input type="hidden" value="" name="id_data_imei" />
-                    <input type="hidden" value="" name="berkasFile" />
+                    <div class="form-group row">
+                        <label for="manufaktur" class="col-sm-2 col-form-label">Manufaktur</label>
+                        <div class="col-sm-10 kosong">
+                            <input type="text" class="form-control" name="manufaktur" id="manufaktur" readonly value="<?php echo $manufaktur; ?>">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="merk" class="col-sm-2 col-form-label">Merk</label>
+                        <div class="col-sm-10 kosong">
+                            <input type="text" class="form-control" name="merk" id="merk">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="no_model" class="col-sm-2 col-form-label">Nomor Model</label>
+                        <div class="col-sm-10 kosong">
+                            <input type="text" class="form-control" name="no_model" id="no_model">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="total" class="col-sm-2 col-form-label">Total</label>
+                        <div class="col-sm-10 kosong">
+                            <input type="number" class="form-control" name="total" id="total">
+                        </div>
+                    </div>
+                    <!-- <input type="hidden" value="" name="berkasFile" />
                     <div class="form-group row">
                         <label for="fileImei" class="col-sm-2 col-form-label">File</label>
                         <div class="input-group col-sm-10 kosong">
@@ -25,7 +49,7 @@
                                 <a class="btn btn-block bg-gradient-info" id="view_file" href="" target="_blank">Preview</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </form>
             </div>
             <div class="modal-footer">

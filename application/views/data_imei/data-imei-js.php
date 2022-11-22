@@ -21,7 +21,7 @@
             },
             //Set column definition initialisation properties.
             "columnDefs": [{
-                "targets": [0, 1, 2, 3, 4],
+                "targets": [0, 1, 2, 3, 4, 5, 6],
                 "className": 'text-center'
             }, {
                 "searchable": false,
@@ -30,7 +30,7 @@
             }, {
                 "targets": [-1], //last column
                 "render": function(data, type, row) {
-                    return "<div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-primary\" href=\"javascript:void(0)\" title=\"Edit\" onclick=\"edit(" + row[4] + ")\"><i class=\"fas fa-edit\"></i> Ubah</a></div> <div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-danger\" href=\"javascript:void(0)\" title=\"Delete\" onclick=\"del(" + row[4] + ")\"><i class=\"fas fa-trash\"></i> Hapus</a></div>";
+                    return "<div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-primary edit\" href=\"javascript:void(0)\" title=\"Edit\" data-id=\"" + row[1] + "\"><i class=\"fas fa-edit\"></i> Ubah</a></div> <div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-danger delete\" href=\"javascript:void(0)\" title=\"Delete\" data-id=\"" + row[1] + "\"><i class=\"fas fa-trash\"></i> Hapus</a></div>";
                 },
                 "orderable": false, //set not orderable
             }, ],
@@ -69,7 +69,8 @@
     });
 
     //delete
-    function del(id) {
+    $(document).on("click", ".delete", function() {
+        var id = $(this).attr("data-id");
 
         Swal.fire({
             title: 'Konfirmasi Hapus Data',
@@ -83,9 +84,9 @@
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    url: "<?php echo site_url('sindikat/delete'); ?>",
+                    url: "<?php echo site_url('dataimei/delete'); ?>",
                     type: "POST",
-                    data: "id_sindikat=" + id,
+                    data: "id_data_imei=" + id,
                     cache: false,
                     dataType: 'json',
                     success: function(respone) {
@@ -93,7 +94,7 @@
                             reload_table();
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Sindikat Berhasil Dihapus!'
+                                title: 'Data Pengajuan Berhasil Dihapus!'
                             });
                         } else {
                             Toast.fire({
@@ -111,7 +112,7 @@
                 )
             }
         })
-    }
+    });
 
     function add() {
         save_method = 'add';
@@ -122,7 +123,8 @@
         $('.modal-title').text('Tambah Data Baru'); // Set Title to Bootstrap modal title
     }
 
-    function edit(id) {
+    $(document).on("click", ".edit", function() {
+        var id = $(this).attr("data-id");
         save_method = 'update';
         $('#form')[0].reset(); // reset form on modals
         $('.form-group').removeClass('has-error'); // clear error class
@@ -130,22 +132,24 @@
 
         //Ajax Load data from ajax
         $.ajax({
-            url: "<?php echo site_url('sindikat/edit') ?>/" + id,
+            url: "<?php echo site_url('dataimei/edit') ?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data) {
 
-                $('[name="id_sindikat"]').val(data.id_sindikat);
-                $('[name="nama_sindikat"]').val(data.nama_sindikat);
+                $('[name="id_data_imei"]').val(data.id_data_imei);
+                $('[name="merk"]').val(data.merk);
+                $('[name="no_model"]').val(data.no_model);
+                $('[name="total"]').val(data.total);
                 $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Ubah Sindikat'); // Set title to Bootstrap modal title
+                $('.modal-title').text('Ubah Pengajuan IMEI'); // Set title to Bootstrap modal title
 
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 alert('Error get data from ajax');
             }
         });
-    }
+    });
 
     function save() {
         $('#btnSave').text('Menyimpan...'); //change button text
@@ -155,7 +159,7 @@
         if (save_method == 'add') {
             url = "<?php echo site_url('dataimei/insert') ?>";
         } else {
-            url = "<?php echo site_url('sindikat/update') ?>";
+            url = "<?php echo site_url('dataimei/update') ?>";
         }
         var formdata = new FormData($('#form')[0]);
 
@@ -178,12 +182,12 @@
                     if (save_method == 'add') {
                         Toast.fire({
                             icon: 'success',
-                            title: 'Data Baru Berhasil Disimpan!'
+                            title: 'Pengajuan Baru Berhasil Disimpan!'
                         });
                     } else if (save_method == 'update') {
                         Toast.fire({
                             icon: 'success',
-                            title: 'Sindikat Berhasil Diubah!'
+                            title: 'Data Pengajuan Berhasil Diubah!'
                         });
                     }
                 } else {

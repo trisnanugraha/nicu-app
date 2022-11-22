@@ -13,6 +13,7 @@ class Dataimei extends MY_Controller
     public function index()
     {
         $data['judul'] = 'Data IMEI';
+        $data['manufaktur'] = $this->session->userdata('full_name');
         $data['modal_tambah'] = show_my_modal('data_imei/modal_tambah_imei', $data);
         $js = $this->load->view('data_imei/data-imei-js', null, true);
         $this->template->views('data_imei/home', $data, $js);
@@ -22,7 +23,15 @@ class Dataimei extends MY_Controller
     {
         ini_set('memory_limit', '512M');
         set_time_limit(3600);
-        $list = $this->Mod_manufaktur_imei->get_datatables();
+
+        $checklevel = $this->session->userdata('hak_akses');
+
+        if ($checklevel == 'Admin') {
+            $list = $this->Mod_manufaktur_imei->get_datatables();
+        } else {
+            $list = $this->Mod_manufaktur_imei->get_datatables($this->session->userdata('id_user'));
+        }
+
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $i) {
@@ -30,41 +39,60 @@ class Dataimei extends MY_Controller
             $no++;
             $row = array();
             $row[] = $no;
-            $row[] = $i->nama_manufaktur;
-            $row[] = $i->file;
-            $row[] = $i->tgl_dibuat;
             $row[] = $i->id_data_imei;
+            $row[] = $i->nama_manufaktur;
+            $row[] = $i->merk;
+            $row[] = $i->no_model;
+            $row[] = $i->total;
+            $row[] = tgl_indonesia($i->tgl_dibuat);
             // $row[] = $cekuser;
             $data[] = $row;
         }
 
-        $output = array(
-            "draw" => $_POST['draw'],
-            "recordsTotal" => $this->Mod_manufaktur_imei->count_all(),
-            "recordsFiltered" => $this->Mod_manufaktur_imei->count_filtered(),
-            "data" => $data,
-        );
+        if ($checklevel == 'Admin') {
+            $output = array(
+                "draw" => $_POST['draw'],
+                "recordsTotal" => $this->Mod_manufaktur_imei->count_all(),
+                "recordsFiltered" => $this->Mod_manufaktur_imei->count_filtered(),
+                "data" => $data,
+            );
+        } else {
+            $output = array(
+                "draw" => $_POST['draw'],
+                "recordsTotal" => $this->Mod_manufaktur_imei->count_all($this->session->userdata('id_user')),
+                "recordsFiltered" => $this->Mod_manufaktur_imei->count_filtered($this->session->userdata('id_user')),
+                "data" => $data,
+            );
+        }
+
+
         //output to json format
         echo json_encode($output);
     }
 
     public function edit($id)
     {
-        $data = $this->Mod_sindikat->get_sindikat($id);
+        $data = $this->Mod_manufaktur_imei->get_imei($id);
         echo json_encode($data);
     }
 
     public function insert()
     {
+        $format = "%Y-%M";
+
         $post = $this->input->post();
 
+        $this->id_data_imei = 'M' . '-' . mdate($format) . '-' . uniqid();
         $this->id_manufaktur = $this->session->userdata('id_user');
+        $this->merk = $post['merk'];
+        $this->no_model = $post['no_model'];
+        $this->total = $post['total'];
 
-        if (!empty($_FILES['fileImei']['name'])) {
-            $this->file = $this->_upload('manufaktur', 'fileImei');
-        } else {
-            $this->file = $post['berkasFile'];
-        }
+        // if (!empty($_FILES['fileImei']['name'])) {
+        //     $this->file = $this->_upload('manufaktur', 'fileImei');
+        // } else {
+        //     $this->file = $post['berkasFile'];
+        // }
 
         $this->Mod_manufaktur_imei->insert($this);
         echo json_encode(array("status" => TRUE));
@@ -73,39 +101,53 @@ class Dataimei extends MY_Controller
     public function update()
     {
         $this->_validate();
-        $id      = $this->input->post('id_sindikat');
+        $id      = $this->input->post('id_data_imei');
         $data  = array(
-            'nama_sindikat' => $this->input->post('nama_sindikat'),
+            'merk' => $this->input->post('merk'),
+            'no_model' => $this->input->post('no_model'),
+            'total' => $this->input->post('total'),
         );
-        $this->Mod_sindikat->update($id, $data);
+        $this->Mod_manufaktur_imei->update($id, $data);
         echo json_encode(array("status" => TRUE));
     }
 
     public function delete()
     {
-        $id = $this->input->post('id_sindikat');
-        $this->Mod_sindikat->delete($id);
+        $id = $this->input->post('id_data_imei');
+        $this->Mod_manufaktur_imei->delete($id);
         echo json_encode(array("status" => TRUE));
     }
 
-    // private function _validate()
-    // {
-    //     $data = array();
-    //     $data['error_string'] = array();
-    //     $data['inputerror'] = array();
-    //     $data['status'] = TRUE;
+    private function _validate()
+    {
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
 
-    //     if ($this->input->post('nama_sindikat') == '') {
-    //         $data['inputerror'][] = 'nama_sindikat';
-    //         $data['error_string'][] = 'Nama Sindikat Tidak Boleh Kosong';
-    //         $data['status'] = FALSE;
-    //     }
+        if ($this->input->post('merk') == '') {
+            $data['inputerror'][] = 'merk';
+            $data['error_string'][] = 'Merk Tidak Boleh Kosong';
+            $data['status'] = FALSE;
+        }
 
-    //     if ($data['status'] === FALSE) {
-    //         echo json_encode($data);
-    //         exit();
-    //     }
-    // }
+        if ($this->input->post('no_model') == '') {
+            $data['inputerror'][] = 'no_model';
+            $data['error_string'][] = 'Nama Sindikat Tidak Boleh Kosong';
+            $data['status'] = FALSE;
+        }
+
+        if ($this->input->post('total') == '') {
+            $data['inputerror'][] = 'total';
+            $data['error_string'][] = 'Total Produk Tidak Boleh Kosong';
+            $data['status'] = FALSE;
+        }
+
+        if ($data['status'] === FALSE) {
+            echo json_encode($data);
+            exit();
+        }
+    }
 
     private function _upload($folder, $target)
     {

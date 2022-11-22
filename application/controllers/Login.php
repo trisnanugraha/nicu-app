@@ -16,10 +16,8 @@ class Login extends CI_Controller
         if ($logged_in == TRUE) {
             if ($this->session->userdata('id_level') == 1) {
                 redirect('dashboard');
-            } elseif ($this->session->userdata('id_level') == 15) {
-                redirect('suratperintah');
             } else {
-                redirect('permohonansurat');
+                redirect('data-imei');
             }
         } else {
             $aplikasi['aplikasi'] = $this->Mod_login->Aplikasi()->row();
@@ -53,7 +51,8 @@ class Login extends CI_Controller
                         'title'       => $apl->title,
                         'logo'        => $apl->logo,
                         'nama_owner'     => $apl->nama_owner,
-                        'logged_in'    => TRUE
+                        'logged_in'    => TRUE,
+                        'hak_akses' => ''
                     );
 
                     $this->session->set_userdata($userdata);
@@ -63,9 +62,11 @@ class Login extends CI_Controller
                     if ($checklevel == 'Admin') {
                         helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
                         $data['url'] = 'dashboard';
+                        $userdata['hak_akses'] = 'Admin';
                     } else if ($checklevel == 'Manufaktur') {
                         helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
                         $data['url'] = 'data-imei';
+                        $userdata['hak_akses'] = 'Manufaktur';
                     }
                     $this->fungsi->send_bot($db->username, "Berhasil Masuk Ke Sistem", "LOGIN");
                     $data['status'] = TRUE;

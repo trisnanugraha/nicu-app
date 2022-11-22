@@ -15,9 +15,12 @@
                             <thead>
                                 <tr class="bg-info text-center">
                                     <th>No.</th>
+                                    <th>ID Pengajuan</th>
                                     <th>Nama Manufaktur</th>
-                                    <th>File</th>
-                                    <th>Tanggal Upload</th>
+                                    <th>Merk</th>
+                                    <th>No. Model</th>
+                                    <th>Total</th>
+                                    <th>Tanggal Pengajuan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>

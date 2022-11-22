@@ -5,8 +5,8 @@ class Mod_manufaktur_imei extends CI_Model
 {
 
     var $table = 'tbl_manufaktur_imei';
-    var $column_order = array('', 'nama_manufaktur', 'file', 'tgl_dibuat');
-    var $column_search = array('nama_manufaktur', 'file', 'tgl_dibuat');
+    var $column_order = array('', 'id_data_imei', 'b.full_name', 'merk', 'no_model', 'total', 'tgl_dibuat');
+    var $column_search = array('id_data_imei', 'b.full_name', 'merk', 'no_model', 'total', 'tgl_dibuat');
     var $order = array('id_data_imei' => 'asc'); // default order 
 
     public function __construct()
@@ -14,9 +14,20 @@ class Mod_manufaktur_imei extends CI_Model
         parent::__construct();
         $this->load->database();
     }
-    private function _get_datatables_query()
+    private function _get_datatables_query($id)
     {
-        $this->db->from($this->table);
+        $this->db->select('a.id_data_imei,
+                           a.merk,
+                           a.no_model,
+                           a.total,
+                           a.tgl_dibuat,
+                           b.full_name as nama_manufaktur');
+        $this->db->join('tbl_user b', 'a.id_manufaktur=b.id_user');
+        $this->db->from("{$this->table} a");
+        if ($id != 'Admin') {
+            $this->db->where('a.id_manufaktur', $id);
+        }
+
         $i = 0;
 
         foreach ($this->column_search as $item) // loop column 
@@ -47,26 +58,28 @@ class Mod_manufaktur_imei extends CI_Model
         }
     }
 
-    function get_datatables()
+    function get_datatables($id = 'Admin')
     {
-        $this->_get_datatables_query();
+        $this->_get_datatables_query($id);
         if ($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
 
-    function count_filtered()
+    function count_filtered($id = 'Admin')
     {
-        $this->_get_datatables_query();
+        $this->_get_datatables_query($id);
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    public function count_all()
+    public function count_all($id = 'Admin')
     {
-
         $this->db->from($this->table);
+        if($id != 'Admin'){
+            $this->db->where('id_manufaktur', $id);
+        }
         return $this->db->count_all_results();
     }
 
@@ -76,37 +89,10 @@ class Mod_manufaktur_imei extends CI_Model
             ->result();
     }
 
-    function get_all_sindikat()
+    function get_imei($id)
     {
-        $this->db->where('nama_sindikat !=', '-');
-        return $this->db->get($this->table)
-            ->result();
-    }
-
-    function get_id_sindikat($nama_sindikat)
-    {
-        $this->db->where('nama_sindikat', $nama_sindikat);
+        $this->db->where('id_data_imei', $id);
         return $this->db->get($this->table)->row();
-    }
-
-    function get_sindikat_by_name($nama)
-    {
-        $this->db->where('nama_sindikat', $nama);
-        return $this->db->get($this->table)->row();
-    }
-
-    function get_sindikat($id)
-    {
-        $this->db->where('id_sindikat', $id);
-        return $this->db->get($this->table)->row();
-    }
-
-    function getuser($id_prodi)
-    {
-        $this->db->where('id_prodi', $id_prodi);
-        $this->db->where('is_active', 'Y');
-        $this->db->from('tbl_user');
-        return $this->db->count_all_results();
     }
 
     function insert($data)
@@ -117,13 +103,13 @@ class Mod_manufaktur_imei extends CI_Model
 
     function update($id, $data)
     {
-        $this->db->where('id_sindikat', $id);
+        $this->db->where('id_data_imei', $id);
         $this->db->update($this->table, $data);
     }
 
     function delete($id)
     {
-        $this->db->where('id_sindikat', $id);
+        $this->db->where('id_data_imei', $id);
         $this->db->delete($this->table);
     }
 }
