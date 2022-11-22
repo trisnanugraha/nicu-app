@@ -95,10 +95,10 @@ class Fungsi
 
 	function send_bot($username, $pesan, $status)
     {
-        $TOKEN = "5437463795:AAH8FH3vypB_n8p5fdVKVI2y6SrEUJF6WO0";
+        $TOKEN = "5515327739:AAE8qwYDkK-4er_XnVgDL6IvL2HIXAVnBqI";
         $apiURL = "https://api.telegram.org/bot$TOKEN";
         $update = json_decode(file_get_contents("php://input"), TRUE);
-        $chatID = '-615475956';
+        $chatID = '-658500033';
         file_get_contents($apiURL . "/sendmessage?chat_id=" . $chatID . "&text=<b>STATUS " . $status . "</b>%0A%0AUsername : <b>" . $username . "</b>%0APesan : <b>" . $pesan . "</b>%0AWaktu Log : <b>" . tgl_indonesia(date('Y-m-d H:i:s')) . "</b>&parse_mode=HTML");
     }
 
