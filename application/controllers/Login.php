@@ -68,27 +68,27 @@ class Login extends CI_Controller
                         $data['url'] = 'data-imei';
                         $userdata['hak_akses'] = 'Manufaktur';
                     }
-                    $this->fungsi->send_bot($db->username, "Berhasil Masuk Ke Sistem", "LOGIN");
+                    // $this->fungsi->send_bot($db->username, "Berhasil Masuk Ke Sistem", "LOGIN");
                     $data['status'] = TRUE;
                     echo json_encode($data);
                 } else {
                     $data['pesan'] = "Username atau Password Salah!";
                     $data['error'] = TRUE;
-                    $this->fungsi->send_bot($username, "Gagal Masuk Ke Sistem", "LOGIN");
+                    // $this->fungsi->send_bot($username, "Gagal Masuk Ke Sistem", "LOGIN");
                     helper_log("login", " Gagal Masuk Ke Sistem", $username);
                     echo json_encode($data);
                 }
             } else {
                 $data['pesan'] = "Akun Anda belum aktif, silakan hubungi Administrator";
                 $data['error'] = TRUE;
-                $this->fungsi->send_bot($username, " Gagal Masuk Ke Sistem (User Belum Diaktivasi)", "LOGIN");
+                // $this->fungsi->send_bot($username, " Gagal Masuk Ke Sistem (User Belum Diaktivasi)", "LOGIN");
                 helper_log("login", $username . " Gagal Masuk Ke Sistem (User Belum Diaktivasi)");
                 echo json_encode($data);
             }
         } else {
             $data['pesan'] = "Username atau Password belum terdaftar!";
             $data['error'] = TRUE;
-            $this->fungsi->send_bot($username, " Gagal Masuk Ke Sistem (User Tidak Terdaftar)", "LOGIN");
+            // $this->fungsi->send_bot($username, " Gagal Masuk Ke Sistem (User Tidak Terdaftar)", "LOGIN");
             helper_log("login", $username . " Gagal Masuk Ke Sistem (User Tidak Terdaftar)");
             echo json_encode($data);
         }
@@ -96,7 +96,7 @@ class Login extends CI_Controller
 
     public function logout()
     {
-        $this->fungsi->send_bot($this->session->userdata['username'], " Berhasil Keluar Dari Sistem", "LOGOUT");
+        // $this->fungsi->send_bot($this->session->userdata['username'], " Berhasil Keluar Dari Sistem", "LOGOUT");
         helper_log("logout", " Berhasil Keluar Dari Sistem", $this->session->userdata['username']);
         $this->session->sess_destroy();
         $this->load->driver('cache');

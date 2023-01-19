@@ -37,7 +37,7 @@
                             <input type="number" class="form-control" name="total" id="total">
                         </div>
                     </div>
-                    <!-- <input type="hidden" value="" name="berkasFile" />
+                    <input type="hidden" value="" name="berkasFile" />
                     <div class="form-group row">
                         <label for="fileImei" class="col-sm-2 col-form-label">File</label>
                         <div class="input-group col-sm-10 kosong">
@@ -49,7 +49,7 @@
                                 <a class="btn btn-block bg-gradient-info" id="view_file" href="" target="_blank">Preview</a>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

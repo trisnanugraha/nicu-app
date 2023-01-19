@@ -117,6 +117,10 @@
     function add() {
         save_method = 'add';
         $('#form')[0].reset(); // reset form on modals
+        var laporan = document.getElementById('view_file');
+        laporan.href = "";
+        $('[name="berkasFile"]').val('');
+        $('#label-file').html('Pilih File');
         $('.form-group').removeClass('has-error'); // clear error class
         $('.help-block').empty(); // clear error string
         $('#modal_form').modal('show'); // show bootstrap modal
@@ -127,6 +131,7 @@
         var id = $(this).attr("data-id");
         save_method = 'update';
         $('#form')[0].reset(); // reset form on modals
+        $('#label-file').html('Pilih File');
         $('.form-group').removeClass('has-error'); // clear error class
         $('.help-block').empty(); // clear error string
 
@@ -141,6 +146,14 @@
                 $('[name="merk"]').val(data.merk);
                 $('[name="no_model"]').val(data.no_model);
                 $('[name="total"]').val(data.total);
+                if (data.file != '') {
+                    var lokasiFile = "<?php echo base_url('upload/manufaktur/') ?>"
+                    $('#view_file').attr("href", lokasiFile + data.file);
+                    $('[name="berkasFile"]').val(data.file);
+                    $('#label-file').html(data.file);
+                } else {
+                    $('#view_file').attr("href", '');
+                }
                 $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
                 $('.modal-title').text('Ubah Pengajuan IMEI'); // Set title to Bootstrap modal title
 
@@ -179,6 +192,8 @@
                 {
                     $('#modal_form').modal('hide');
                     reload_table();
+                    var laporan = document.getElementById('view_file');
+                    laporan.href = "";
                     if (save_method == 'add') {
                         Toast.fire({
                             icon: 'success',
@@ -200,8 +215,6 @@
                 $('#btnSave').text('Simpan'); //change button text
                 $('#btnCancel').text('Batal'); //change button text
                 $('#btnSave').attr('disabled', false); //set button enable 
-
-
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 alert('Error adding / update data');
@@ -217,4 +230,11 @@
         var file = document.getElementById('view_file');
         file.href = URL.createObjectURL(event.target.files[0]);
     };
+
+    function batal() {
+        $('#form')[0].reset();
+        reload_table();
+        var laporan = document.getElementById('view_file');
+        laporan.href = "";
+    }
 </script>

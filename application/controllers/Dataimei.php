@@ -88,11 +88,11 @@ class Dataimei extends MY_Controller
         $this->no_model = $post['no_model'];
         $this->total = $post['total'];
 
-        // if (!empty($_FILES['fileImei']['name'])) {
-        //     $this->file = $this->_upload('manufaktur', 'fileImei');
-        // } else {
-        //     $this->file = $post['berkasFile'];
-        // }
+        if (!empty($_FILES['fileImei']['name'])) {
+            $this->file = $this->_upload('manufaktur', 'fileImei');
+        } else {
+            $this->file = $post['berkasFile'];
+        }
 
         $this->Mod_manufaktur_imei->insert($this);
         echo json_encode(array("status" => TRUE));
@@ -101,13 +101,20 @@ class Dataimei extends MY_Controller
     public function update()
     {
         $this->_validate();
+
+        $post = $this->input->post();
+
         $id      = $this->input->post('id_data_imei');
-        $data  = array(
-            'merk' => $this->input->post('merk'),
-            'no_model' => $this->input->post('no_model'),
-            'total' => $this->input->post('total'),
-        );
-        $this->Mod_manufaktur_imei->update($id, $data);
+        $this->merk = $post['merk'];
+        $this->no_model = $post['no_model'];
+        $this->total = $post['total'];
+        if (!empty($_FILES['fileImei']['name'])) {
+            $this->file = $this->_upload('manufaktur', 'fileImei');
+        } else {
+            $this->file = $post['berkasFile'];
+        }
+
+        $this->Mod_manufaktur_imei->update($id, $this);
         echo json_encode(array("status" => TRUE));
     }
 
@@ -154,7 +161,7 @@ class Dataimei extends MY_Controller
         $user = $this->session->userdata['user_name'];
         $format = "%Y-%M-%d--%H-%i";
         $config['upload_path']          = './upload/' . $folder . '/';
-        $config['allowed_types']        = 'pdf|doc|docx|xls|xlsx';
+        $config['allowed_types']        = 'xls|xlsx';
         $config['overwrite']            = true;
         $config['file_name']            = mdate($format) . "_{$user}";
 
