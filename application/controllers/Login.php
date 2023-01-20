@@ -67,6 +67,10 @@ class Login extends CI_Controller
                         helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
                         $data['url'] = 'data-imei';
                         $userdata['hak_akses'] = 'Manufaktur';
+                    } else {
+                        helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
+                        $data['url'] = 'daftar-imei';
+                        // $userdata['hak_akses'] = 'Manufaktur';
                     }
                     // $this->fungsi->send_bot($db->username, "Berhasil Masuk Ke Sistem", "LOGIN");
                     $data['status'] = TRUE;
