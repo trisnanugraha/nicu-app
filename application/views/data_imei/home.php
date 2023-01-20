@@ -4,11 +4,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header bg-light">
-                        <div class="text-left">
-                            <button type="button" class="btn btn-sm btn-outline-primary" onclick="add()" title="Add Data"><i class="fas fa-plus"></i> Tambah Data Baru</button>
+                    <?php if ($hakakses == 'Manufaktur') { ?>
+                        <div class="card-header bg-light">
+                            <div class="text-left">
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="add()" title="Add Data"><i class="fas fa-plus"></i> Tambah Data Baru</button>
+                            </div>
                         </div>
-                    </div>
+                    <?php } ?>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="tabel-imei" class="table table-bordered table-striped table-hover">

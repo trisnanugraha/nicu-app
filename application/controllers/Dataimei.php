@@ -14,6 +14,7 @@ class Dataimei extends MY_Controller
     {
         $data['judul'] = 'Data IMEI';
         $data['manufaktur'] = $this->session->userdata('full_name');
+        $data['hakakses'] = $this->session->userdata('hak_akses');
         $data['modal_tambah'] = show_my_modal('data_imei/modal_tambah_imei', $data);
         $js = $this->load->view('data_imei/data-imei-js', null, true);
         $this->template->views('data_imei/home', $data, $js);
@@ -26,14 +27,17 @@ class Dataimei extends MY_Controller
 
         $checklevel = $this->session->userdata('hak_akses');
 
-        if ($checklevel == 'Admin') {
-            $list = $this->Mod_manufaktur_imei->get_datatables();
-        } else {
-            $list = $this->Mod_manufaktur_imei->get_datatables($this->session->userdata('id_user'));
-        }
+        // if ($checklevel == 'Admin') {
+        //     $list = $this->Mod_admin_manufaktur_imei->get_datatables();
+        // } else {
+        //     $list = $this->Mod_manufaktur_imei->get_datatables($this->session->userdata('id_user'));
+        // }
+
+        $list = $this->Mod_manufaktur_imei->get_datatables($this->session->userdata('id_user'));
 
         $data = array();
         $no = $_POST['start'];
+
         foreach ($list as $i) {
             // $cekuser = $this->Mod_kelas->getuser($kelas->id_kelas); 
             $no++;
@@ -49,21 +53,28 @@ class Dataimei extends MY_Controller
             $data[] = $row;
         }
 
-        if ($checklevel == 'Admin') {
-            $output = array(
-                "draw" => $_POST['draw'],
-                "recordsTotal" => $this->Mod_manufaktur_imei->count_all(),
-                "recordsFiltered" => $this->Mod_manufaktur_imei->count_filtered(),
-                "data" => $data,
-            );
-        } else {
-            $output = array(
-                "draw" => $_POST['draw'],
-                "recordsTotal" => $this->Mod_manufaktur_imei->count_all($this->session->userdata('id_user')),
-                "recordsFiltered" => $this->Mod_manufaktur_imei->count_filtered($this->session->userdata('id_user')),
-                "data" => $data,
-            );
-        }
+        // if ($checklevel == 'Admin') {
+        //     $output = array(
+        //         "draw" => $_POST['draw'],
+        //         "recordsTotal" => $this->Mod_manufaktur_imei->count_all(),
+        //         "recordsFiltered" => $this->Mod_manufaktur_imei->count_filtered(),
+        //         "data" => $data,
+        //     );
+        // } else {
+        //     $output = array(
+        //         "draw" => $_POST['draw'],
+        //         "recordsTotal" => $this->Mod_manufaktur_imei->count_all($this->session->userdata('id_user')),
+        //         "recordsFiltered" => $this->Mod_manufaktur_imei->count_filtered($this->session->userdata('id_user')),
+        //         "data" => $data,
+        //     );
+        // }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->Mod_manufaktur_imei->count_all($this->session->userdata('id_user')),
+            "recordsFiltered" => $this->Mod_manufaktur_imei->count_filtered($this->session->userdata('id_user')),
+            "data" => $data,
+        );
 
 
         //output to json format

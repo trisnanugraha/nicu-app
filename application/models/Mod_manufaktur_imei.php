@@ -24,7 +24,7 @@ class Mod_manufaktur_imei extends CI_Model
                            b.full_name as nama_manufaktur');
         $this->db->join('tbl_user b', 'a.id_manufaktur=b.id_user');
         $this->db->from("{$this->table} a");
-        if ($id != 'Admin') {
+        if ($id != '1') {
             $this->db->where('a.id_manufaktur', $id);
         }
 
@@ -58,7 +58,7 @@ class Mod_manufaktur_imei extends CI_Model
         }
     }
 
-    function get_datatables($id = 'Admin')
+    function get_datatables($id)
     {
         $this->_get_datatables_query($id);
         if ($_POST['length'] != -1)
@@ -67,17 +67,17 @@ class Mod_manufaktur_imei extends CI_Model
         return $query->result();
     }
 
-    function count_filtered($id = 'Admin')
+    function count_filtered($id)
     {
         $this->_get_datatables_query($id);
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    public function count_all($id = 'Admin')
+    public function count_all($id)
     {
         $this->db->from($this->table);
-        if($id != 'Admin'){
+        if($id != '1'){
             $this->db->where('id_manufaktur', $id);
         }
         return $this->db->count_all_results();
