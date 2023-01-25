@@ -112,6 +112,12 @@ class Mod_provider extends CI_Model
         $this->db->where('no_imei', $id);
         $this->db->delete($this->table);
     }
+
+    function total_rows()
+    {
+        $data = $this->db->get($this->table);
+        return $data->num_rows();
+    }
 }
 
 /* End of file Mod_provider.php */

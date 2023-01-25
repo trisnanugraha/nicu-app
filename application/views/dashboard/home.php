@@ -15,6 +15,36 @@
                     <a href="<?php echo base_url('user'); ?>" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
+
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h3><?php echo $imei; ?></h3>
+
+                        <p>Total Pengajuan IMEI (Provider)</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-address-card"></i>
+                    </div>
+                    <a href="<?php echo base_url('daftar-imei'); ?>" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3><?php echo $manufaktur; ?></h3>
+
+                        <p>Total Pengajuan IMEI (Manufaktur)</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-address-card"></i>
+                    </div>
+                    <a href="<?php echo base_url('manufaktur'); ?>" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
             
             <!-- <div class="col-lg-3 col-12">
                 <div class="row">

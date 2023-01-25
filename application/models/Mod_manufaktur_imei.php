@@ -112,6 +112,12 @@ class Mod_manufaktur_imei extends CI_Model
         $this->db->where('id_data_imei', $id);
         $this->db->delete($this->table);
     }
+
+    function total_rows()
+    {
+        $data = $this->db->get($this->table);
+        return $data->num_rows();
+    }
 }
 
 /* End of file Mod_manufaktur_imei.php */
