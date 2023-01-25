@@ -40,6 +40,23 @@ class Login extends CI_Controller
 
                 if (hash_verified(anti_injection($this->input->post('password')), $db->password)) {
                     //cek username dan password yg ada di database
+
+                    $checklevel = $this->_cek_status($db->id_level);
+
+                    if ($checklevel == 'Admin') {
+                        helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
+                        $data['url'] = 'dashboard';
+                        $hak_akses = 'Admin';
+                    } else if ($checklevel == 'Manufaktur') {
+                        helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
+                        $data['url'] = 'data-imei';
+                        $hak_akses = 'Manufaktur';
+                    } else if ($checklevel == 'Provider') {
+                        helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
+                        $data['url'] = 'data-provider';
+                        $hak_akses = 'Provider';
+                    }
+
                     $userdata = array(
                         'id_user'  => $db->id_user,
                         'username'    => ucfirst($db->username),
@@ -52,26 +69,10 @@ class Login extends CI_Controller
                         'logo'        => $apl->logo,
                         'nama_owner'     => $apl->nama_owner,
                         'logged_in'    => TRUE,
-                        'hak_akses' => ''
+                        'hak_akses' => $hak_akses
                     );
 
                     $this->session->set_userdata($userdata);
-
-                    $checklevel = $this->_cek_status($userdata['id_level']);
-
-                    if ($checklevel == 'Admin') {
-                        helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
-                        $data['url'] = 'dashboard';
-                        $userdata['hak_akses'] = 'Admin';
-                    } else if ($checklevel == 'Manufaktur') {
-                        helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
-                        $data['url'] = 'data-imei';
-                        $userdata['hak_akses'] = 'Manufaktur';
-                    } else if ($checklevel == 'Provider') {
-                        helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
-                        $data['url'] = 'data-provider';
-                        $userdata['hak_akses'] = 'Provider';
-                    }
                     // $this->fungsi->send_bot($db->username, "Berhasil Masuk Ke Sistem", "LOGIN");
                     $data['status'] = TRUE;
                     echo json_encode($data);
