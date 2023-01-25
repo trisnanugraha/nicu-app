@@ -89,6 +89,9 @@ class Dataimei extends MY_Controller
 
     public function insert()
     {
+
+        $this->_validate();
+
         $format = "%Y-%M";
 
         $post = $this->input->post();
@@ -151,7 +154,7 @@ class Dataimei extends MY_Controller
 
         if ($this->input->post('no_model') == '') {
             $data['inputerror'][] = 'no_model';
-            $data['error_string'][] = 'Nama Sindikat Tidak Boleh Kosong';
+            $data['error_string'][] = 'Nomor Model Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 
