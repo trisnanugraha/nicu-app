@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <?php if ($hakakses == 'Manufaktur') { ?>
+                    <?php if ($hakakses != 'Admin') { ?>
                         <div class="card-header bg-light">
                             <div class="text-left">
                                 <button type="button" class="btn btn-sm btn-outline-primary" onclick="add()" title="Add Data"><i class="fas fa-plus"></i> Tambah Data Baru</button>
