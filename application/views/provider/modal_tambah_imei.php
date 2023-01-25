@@ -39,17 +39,14 @@
                     </div> -->
                     <div class="form-group row">
                         <label for="expired_date" class="col-sm-2 col-form-label">Masa Aktif</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="radio1">
-                            <label class="form-check-label">Radio</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="radio1" checked="">
-                            <label class="form-check-label">Radio checked</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" disabled="">
-                            <label class="form-check-label">Radio disabled</label>
+                        <div class="col-sm-10 kosong">
+                            <select class="form-control" name="expired_date" id="expired_date">
+                                <option value="" selected disabled>Pilih Masa Aktif</option>
+                                <option value="1">1 Bulan</option>
+                                <option value="3">3 Bulan</option>
+                                <option value="6">6 Bulan</option>
+                                <option value="12">12 Bulan</option>
+                            </select>
                         </div>
                     </div>
                     <!-- <input type="hidden" value="" name="berkasFile" />

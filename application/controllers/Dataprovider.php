@@ -83,12 +83,13 @@ class Dataprovider extends MY_Controller
 
     public function edit($id)
     {
-        $data = $this->Mod_manufaktur_imei->get_imei($id);
+        $data = $this->Mod_provider->get_imei($id);
         echo json_encode($data);
     }
 
     public function insert()
     {
+        $this->_validate();
         $post = $this->input->post();
         $this->no_imei = $post['no_imei'];
         $this->no_passport = $post['no_passport'];
@@ -106,24 +107,21 @@ class Dataprovider extends MY_Controller
 
         $post = $this->input->post();
 
-        $id      = $this->input->post('id_data_imei');
-        $this->merk = $post['merk'];
-        $this->no_model = $post['no_model'];
-        $this->total = $post['total'];
-        if (!empty($_FILES['fileImei']['name'])) {
-            $this->file = $this->_upload('manufaktur', 'fileImei');
-        } else {
-            $this->file = $post['berkasFile'];
-        }
+        $id      = $this->input->post('no_imei');
+        $this->no_imei = $post['no_imei'];
+        $this->no_passport = $post['no_passport'];
+        $this->expired_date = $post['expired_date'];
+        $this->status = 'Aktif Berjangka';
+        $this->updated_by = $this->session->userdata('id_user');
 
-        $this->Mod_manufaktur_imei->update($id, $this);
+        $this->Mod_provider->update($id, $this);
         echo json_encode(array("status" => TRUE));
     }
 
     public function delete()
     {
-        $id = $this->input->post('id_data_imei');
-        $this->Mod_manufaktur_imei->delete($id);
+        $id = $this->input->post('no_imei');
+        $this->Mod_provider->delete($id);
         echo json_encode(array("status" => TRUE));
     }
 
@@ -134,21 +132,21 @@ class Dataprovider extends MY_Controller
         $data['inputerror'] = array();
         $data['status'] = TRUE;
 
-        if ($this->input->post('merk') == '') {
-            $data['inputerror'][] = 'merk';
-            $data['error_string'][] = 'Merk Tidak Boleh Kosong';
+        if ($this->input->post('no_imei') == '') {
+            $data['inputerror'][] = 'no_imei';
+            $data['error_string'][] = 'IMEI Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 
-        if ($this->input->post('no_model') == '') {
-            $data['inputerror'][] = 'no_model';
-            $data['error_string'][] = 'Nama Sindikat Tidak Boleh Kosong';
+        if ($this->input->post('no_passport') == '') {
+            $data['inputerror'][] = 'no_passport';
+            $data['error_string'][] = 'Nomor Passport Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 
-        if ($this->input->post('total') == '') {
-            $data['inputerror'][] = 'total';
-            $data['error_string'][] = 'Total Produk Tidak Boleh Kosong';
+        if ($this->input->post('expired_date') == '') {
+            $data['inputerror'][] = 'expired_date';
+            $data['error_string'][] = 'Masa Aktif Harus Dipilih';
             $data['status'] = FALSE;
         }
 

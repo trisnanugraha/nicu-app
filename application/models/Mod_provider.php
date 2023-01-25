@@ -91,7 +91,7 @@ class Mod_provider extends CI_Model
 
     function get_imei($id)
     {
-        $this->db->where('id_data_imei', $id);
+        $this->db->where('no_imei', $id);
         return $this->db->get($this->table)->row();
     }
 
@@ -103,15 +103,15 @@ class Mod_provider extends CI_Model
 
     function update($id, $data)
     {
-        $this->db->where('id_data_imei', $id);
+        $this->db->where('no_imei', $id);
         $this->db->update($this->table, $data);
     }
 
     function delete($id)
     {
-        $this->db->where('id_data_imei', $id);
+        $this->db->where('no_imei', $id);
         $this->db->delete($this->table);
     }
 }
 
-/* End of file Mod_manufaktur_imei.php */
+/* End of file Mod_provider.php */

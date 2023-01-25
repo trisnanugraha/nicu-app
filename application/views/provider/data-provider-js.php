@@ -84,9 +84,9 @@
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    url: "<?php echo site_url('dataimei/delete'); ?>",
+                    url: "<?php echo site_url('dataprovider/delete'); ?>",
                     type: "POST",
-                    data: "id_data_imei=" + id,
+                    data: "no_imei=" + id,
                     cache: false,
                     dataType: 'json',
                     success: function(respone) {
@@ -94,7 +94,7 @@
                             reload_table();
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Data Pengajuan Berhasil Dihapus!'
+                                title: 'Data IMEI Berhasil Dihapus!'
                             });
                         } else {
                             Toast.fire({
@@ -133,23 +133,14 @@
 
         //Ajax Load data from ajax
         $.ajax({
-            url: "<?php echo site_url('dataimei/edit') ?>/" + id,
+            url: "<?php echo site_url('dataprovider/edit') ?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data) {
 
-                $('[name="id_data_imei"]').val(data.id_data_imei);
-                $('[name="merk"]').val(data.merk);
-                $('[name="no_model"]').val(data.no_model);
-                $('[name="total"]').val(data.total);
-                if (data.file != '') {
-                    var lokasiFile = "<?php echo base_url('upload/manufaktur/') ?>"
-                    $('#view_file').attr("href", lokasiFile + data.file);
-                    $('[name="berkasFile"]').val(data.file);
-                    $('#label-file').html(data.file);
-                } else {
-                    $('#view_file').attr("href", '');
-                }
+                $('[name="no_imei"]').val(data.no_imei);
+                $('[name="no_passport"]').val(data.no_passport);
+                $('[name="expired_date"]').val(data.expired_date);
                 $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
                 $('.modal-title').text('Ubah Pengajuan IMEI'); // Set title to Bootstrap modal title
 
