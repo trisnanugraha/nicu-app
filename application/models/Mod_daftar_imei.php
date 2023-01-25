@@ -78,7 +78,7 @@ class Mod_daftar_imei extends CI_Model
     {
         $this->db->from($this->table);
         if($id != '1'){
-            $this->db->where('id_manufaktur', $id);
+            $this->db->where('created_by', $id);
         }
         return $this->db->count_all_results();
     }
