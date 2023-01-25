@@ -142,7 +142,7 @@
                 $('[name="no_passport"]').val(data.no_passport);
                 $('[name="expired_date"]').val(data.expired_date);
                 $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Ubah Pengajuan IMEI'); // Set title to Bootstrap modal title
+                $('.modal-title').text('Ubah Data IMEI'); // Set title to Bootstrap modal title
 
             },
             error: function(jqXHR, textStatus, errorThrown) {
