@@ -8,4 +8,7 @@ $route['data-imei'] = 'Dataimei/index';
 $route['manufaktur'] = 'Dataimei/index';
 $route['daftar-imei'] = 'Daftarimei/index';
 $route['data-provider'] = 'Dataprovider/index';
+$route['data-beacukai'] = 'Databeacukai/index';
+$route['beacukai'] = 'Databeacukai/index';
+
 

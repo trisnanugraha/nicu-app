@@ -45,6 +45,21 @@
                     <a href="<?php echo base_url('manufaktur'); ?>" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
+
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3><?php echo $beacukai; ?></h3>
+
+                        <p>Total Pengajuan IMEI (Bea Cukai)</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-address-card"></i>
+                    </div>
+                    <a href="<?php echo base_url('beacukai'); ?>" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
             
             <!-- <div class="col-lg-3 col-12">
                 <div class="row">

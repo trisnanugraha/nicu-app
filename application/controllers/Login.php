@@ -55,6 +55,10 @@ class Login extends CI_Controller
                         helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
                         $data['url'] = 'data-provider';
                         $hak_akses = 'Provider';
+                    } else if ($checklevel == 'Bea Cukai') {
+                        helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
+                        $data['url'] = 'data-beacukai';
+                        $hak_akses = 'Bea cukai';
                     }
 
                     $userdata = array(
