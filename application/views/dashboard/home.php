@@ -60,7 +60,22 @@
                     <a href="<?php echo base_url('beacukai'); ?>" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-            
+
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3><?php echo $laporan; ?></h3>
+
+                        <p>Total Laporan</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <a href="<?php echo base_url('laporan'); ?>" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
             <!-- <div class="col-lg-3 col-12">
                 <div class="row">
                     <div class="col-12">

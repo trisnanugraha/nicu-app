@@ -16,6 +16,7 @@ class Dashboard extends MY_Controller
         $this->load->model('Mod_provider');
         $this->load->model('Mod_manufaktur_imei');
         $this->load->model('Mod_beacukai');
+        $this->load->model('Mod_laporan');
         $this->load->model('Mod_log');
 
         // $this->output->enable_profiler(ENVIRONMENT == 'development');
@@ -29,6 +30,7 @@ class Dashboard extends MY_Controller
         $data['imei'] = $this->Mod_provider->total_rows();
         $data['manufaktur'] = $this->Mod_manufaktur_imei->total_rows();
         $data['beacukai'] = $this->Mod_beacukai->total_rows();
+        $data['laporan'] = $this->Mod_laporan->total_rows();
 
         $logged_in = $this->session->userdata('logged_in');
         if ($logged_in != TRUE || empty($logged_in)) {

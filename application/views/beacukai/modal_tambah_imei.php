@@ -20,15 +20,21 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="no_imei" class="col-sm-3 col-form-label">IMEI</label>
+                        <label for="nik" class="col-sm-3 col-form-label">NIK</label>
                         <div class="col-sm-9 kosong">
-                            <input type="text" class="form-control" name="no_imei" id="no_imei">
+                            <input type="text" class="form-control" name="nik" id="nik">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="no_passport" class="col-sm-3 col-form-label">No. Passport</label>
                         <div class="col-sm-9 kosong">
                             <input type="text" class="form-control" name="no_passport" id="no_passport">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="no_imei" class="col-sm-3 col-form-label">IMEI</label>
+                        <div class="col-sm-9 kosong">
+                            <input type="text" class="form-control" name="no_imei" id="no_imei">
                         </div>
                     </div>
                     <div class="form-group row">

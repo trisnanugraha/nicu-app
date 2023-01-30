@@ -4,11 +4,11 @@
 
     $(document).ready(function() {
 
-        table = $("#tabel-imei").DataTable({
+        table = $("#tabel-laporan").DataTable({
             "responsive": true,
             "autoWidth": false,
             "language": {
-                "sEmptyTable": "Data IMEI Masih Kosong"
+                "sEmptyTable": "Data Laporan Masih Kosong"
             },
             "processing": true, //Feature control the processing indicator.
             "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -16,7 +16,7 @@
 
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('databeacukai/ajax_list') ?>",
+                "url": "<?php echo site_url('laporan/ajax_list') ?>",
                 "type": "POST"
             },
             //Set column definition initialisation properties.
@@ -27,13 +27,7 @@
                 "searchable": false,
                 "orderable": false,
                 "targets": 0
-            }, {
-                "targets": [-1], //last column
-                "render": function(data, type, row) {
-                    return "<div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-primary edit\" href=\"javascript:void(0)\" title=\"Edit\" data-id=\"" + row[1] + "\"><i class=\"fas fa-edit\"></i> Ubah</a></div> <div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-danger delete\" href=\"javascript:void(0)\" title=\"Delete\" data-id=\"" + row[1] + "\"><i class=\"fas fa-trash\"></i> Hapus</a></div>";
-                },
-                "orderable": false, //set not orderable
-            }, ],
+            }],
         });
         $("input").change(function() {
             $(this).parent().parent().removeClass('has-error');

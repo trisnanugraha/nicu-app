@@ -1,23 +1,20 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Databeacukai extends MY_Controller
+class Laporan extends MY_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Mod_beacukai');
+        $this->load->model('Mod_laporan');
     }
 
     public function index()
     {
-        $data['judul'] = 'Data Beacukai';
-        $data['register'] = $this->session->userdata('full_name');
-        $data['hakakses'] = $this->session->userdata('hak_akses');
-        $data['modal_tambah'] = show_my_modal('beacukai/modal_tambah_imei', $data);
-        $js = $this->load->view('beacukai/data-beacukai-js', null, true);
-        $this->template->views('beacukai/home', $data, $js);
+        $data['judul'] = 'Data Laporan';
+        $js = $this->load->view('laporan/laporan-js', null, true);
+        $this->template->views('laporan/home', $data, $js);
     }
 
     public function ajax_list()
@@ -33,7 +30,7 @@ class Databeacukai extends MY_Controller
         //     $list = $this->Mod_manufaktur_imei->get_datatables($this->session->userdata('id_user'));
         // }
 
-        $list = $this->Mod_beacukai->get_datatables($this->session->userdata('id_user'));
+        $list = $this->Mod_laporan->get_datatables();
 
         $data = array();
         $no = $_POST['start'];
@@ -43,14 +40,13 @@ class Databeacukai extends MY_Controller
             $no++;
             $row = array();
             $row[] = $no;
-            $row[] = $i->no_imei;
-            $row[] = $i->nik;
-            $row[] = $i->no_passport;
-            $row[] = $i->no_penerbangan;
-            $row[] = $i->tipe_hp;
-            $row[] = $i->model_hp;
+            $row[] = $i->id_laporan;
+            $row[] = $i->nama_lengkap;
+            $row[] = $i->imei;
+            $row[] = $i->no_telepon;
+            $row[] = $i->email;
+            $row[] = $i->deskripsi;
             $row[] = tgl_indonesia($i->created_at);
-            $row[] = $i->status;
             // $row[] = $cekuser;
             $data[] = $row;
         }
@@ -73,8 +69,8 @@ class Databeacukai extends MY_Controller
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->Mod_beacukai->count_all($this->session->userdata('id_user')),
-            "recordsFiltered" => $this->Mod_beacukai->count_filtered($this->session->userdata('id_user')),
+            "recordsTotal" => $this->Mod_laporan->count_all(),
+            "recordsFiltered" => $this->Mod_laporan->count_filtered(),
             "data" => $data,
         );
 

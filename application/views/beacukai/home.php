@@ -18,6 +18,7 @@
                                 <tr class="bg-info text-center">
                                     <th>No.</th>
                                     <th>IMEI</th>
+                                    <th>NIK</th>
                                     <th>No. Passport</th>
                                     <th>No. Penerbangan</th>
                                     <th>Tanggal Register</th>
