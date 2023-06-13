@@ -20,6 +20,10 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
+
+    <!-- 2. AddChat widget -->
+    <div id="addchat_app" data-baseurl="<?php echo base_url() ?>" data-csrfname="<?php echo $this->security->get_csrf_token_name() ?>" data-csrftoken="<?php echo $this->security->get_csrf_hash() ?>"></div>
+
     <div class="wrapper">
         <!-- header -->
         <?php echo @$_header; ?>

@@ -24,3 +24,5 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/adminlte.min.css">
+<!-- 1. AddChat css -->
+<link href="<?php echo base_url('assets/addchat/css/addchat.min.css') ?>" rel="stylesheet">

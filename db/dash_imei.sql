@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 30, 2023 at 03:23 AM
+-- Generation Time: Jun 05, 2023 at 12:06 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.23
 
@@ -102,7 +102,12 @@ INSERT INTO `tbl_akses_menu` (`id`, `id_level`, `id_menu`, `view_level`) VALUES
 (258, 16, 77, 'N'),
 (259, 17, 77, 'Y'),
 (260, 18, 77, 'N'),
-(261, 19, 77, 'N');
+(261, 19, 77, 'N'),
+(262, 1, 78, 'Y'),
+(263, 16, 78, 'N'),
+(264, 17, 78, 'N'),
+(265, 18, 78, 'N'),
+(266, 19, 78, 'N');
 
 -- --------------------------------------------------------
 
@@ -226,7 +231,46 @@ INSERT INTO `tbl_akses_submenu` (`id`, `id_level`, `id_submenu`, `view_level`, `
 (264, 16, 28, 'N', 'N', 'N', 'N', 'N', 'N'),
 (265, 17, 28, 'N', 'N', 'N', 'N', 'N', 'N'),
 (266, 18, 28, 'N', 'N', 'N', 'N', 'N', 'N'),
-(267, 19, 28, 'N', 'N', 'N', 'N', 'N', 'N');
+(267, 19, 28, 'N', 'N', 'N', 'N', 'N', 'N'),
+(268, 1, 29, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y'),
+(269, 16, 29, 'N', 'N', 'N', 'N', 'N', 'N'),
+(270, 17, 29, 'N', 'N', 'N', 'N', 'N', 'N'),
+(271, 18, 29, 'N', 'N', 'N', 'N', 'N', 'N'),
+(272, 19, 29, 'N', 'N', 'N', 'N', 'N', 'N');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_faq`
+--
+
+CREATE TABLE `tbl_faq` (
+  `id_faq` varchar(50) NOT NULL,
+  `pertanyaan` text NOT NULL,
+  `respon` text NOT NULL,
+  `tgl_dibuat` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tgl_diubah` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_faq`
+--
+
+INSERT INTO `tbl_faq` (`id_faq`, `pertanyaan`, `respon`, `tgl_dibuat`, `tgl_diubah`) VALUES
+('FAQ-2023-Jun-647c2c4349526', 'Apakah HP black market (BM) yang dibeli sebelum tanggal 17 Agustus 2019 akan langsung diblokir?', 'Tidak langsung diblokir, tetapi ketentuan atas masa pakainya akan ditentukan kemudian sesuai dengan peraturan perundang-undangan yang berlaku.', '2023-06-04 06:16:35', NULL),
+('FAQ-2023-Jun-647c2c5605c1b', 'Bagaimana jika membeli HP dari luar negeri setelah tanggal 17 Agustus 2019? Apakah nantinya bisa dipakai di Indonesia', 'Tetap bisa dipakai, selama importasinya mengikuti ketentuan peraturan perundang-undangan yg berlaku.', '2023-06-04 06:16:54', NULL),
+('FAQ-2023-Jun-647c2c843e3a0', 'Apa peran Kementerian Perindustrian dalam regulasi ini?', 'Kementerian Perindustrian mengumpulkan data IMEI yang diperoleh dari proses pendaftaran telepon seluler, komputer genggam, dan komputer tablet, sebagaimana diatur dalam <b><a href=\"http://regulasi.kemenperin.go.id/site/download_peraturan/1393\">Peraturan Menteri Perindustrian RI No. 108/M-IND/PER/11/2012.</a></b>', '2023-06-04 06:17:40', NULL),
+('FAQ-2023-Jun-647c2ca8b6189', 'Apa yang dapat saya periksa dengan nomor IMEI?', 'Dengan menggunakan Nomor IMEI yang unik ini Anda dapat mengetahui data seperti: jaringan dan negara asal perangkat Anda, informasi jaminan tanggal pembelian, informasi operator, versi sistem, spesifikasi perangkat, dan informasi detail lainnya. Kapan disarankan untuk memeriksa Informasi IMEI? Anda harus menggunakan Pemeriksa IMEI sebelum membeli perangkat bekas atau baru. Hasilnya, Anda akan melihat apakah perangkat tersebut valid dan asli. Terlebih lagi, Anda juga dapat memeriksa apakah spesifikasinya sesuai dengan penawaran jual. Kami juga mendorong Anda untuk menggunakan Informasi IMEI hanya untuk mengetahui ponsel Anda lebih baik dan membaca informasi penting tentang Perangkat. IMEI.info menawarkan juga beberapa layanan lanjutan (tersedia untuk beberapa produsen) misalnya: Status Temukan iPhone Saya, Status iCloud, Status Daftar Hitam, Informasi Penjual, Pemeriksaan Jaringan & Simlock, Daftar Hitam Telepon, Pemeriksaan Operator, Buka Kunci Simlock, Pemeriksaan Garansi. Mari periksa IMEI dan pastikan ponsel Anda tidak terkunci. Cek IMEI!', '2023-06-04 06:18:16', NULL);
+
+--
+-- Triggers `tbl_faq`
+--
+DELIMITER $$
+CREATE TRIGGER `update_tanggal_faq` BEFORE UPDATE ON `tbl_faq` FOR EACH ROW BEGIN
+	SET new.tgl_diubah = NOW();
+    END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -415,7 +459,10 @@ INSERT INTO `tbl_log` (`log_id`, `log_username`, `log_type`, `log_desc`, `log_ti
 (211, 'beacukai', 'login', 'Berhasil Masuk Ke Sistem', '2023-01-27 02:18:58', '127.0.0.1', 'Chrome', 'Windows 10'),
 (212, 'Beacukai', 'logout', ' Berhasil Keluar Dari Sistem', '2023-01-27 02:20:42', '127.0.0.1', 'Chrome', 'Windows 10'),
 (213, 'provider', 'login', 'Berhasil Masuk Ke Sistem', '2023-01-27 02:20:54', '127.0.0.1', 'Chrome', 'Windows 10'),
-(214, 'admin', 'login', 'Berhasil Masuk Ke Sistem', '2023-01-30 02:31:44', '127.0.0.1', 'Chrome', 'Windows 10');
+(214, 'admin', 'login', 'Berhasil Masuk Ke Sistem', '2023-01-30 02:31:44', '127.0.0.1', 'Chrome', 'Windows 10'),
+(215, 'admin', 'login', 'Berhasil Masuk Ke Sistem', '2023-06-04 05:09:56', '127.0.0.1', 'Chrome', 'Windows 10'),
+(216, 'admin', 'login', 'Berhasil Masuk Ke Sistem', '2023-06-04 05:54:42', '127.0.0.1', 'Firefox', 'Windows 10'),
+(217, 'admin', 'login', 'Berhasil Masuk Ke Sistem', '2023-06-04 22:19:42', '127.0.0.1', 'Firefox', 'Windows 10');
 
 -- --------------------------------------------------------
 
@@ -478,7 +525,8 @@ INSERT INTO `tbl_menu` (`id_menu`, `nama_menu`, `link`, `icon`, `urutan`, `is_ac
 (74, 'Data Master', '#', 'fas fa-database', 1, 'Y', 'Y'),
 (75, 'Data IMEI', 'data-imei', 'fas fa-database', 1, 'Y', 'Y'),
 (76, 'Data Provider', 'data-provider', 'fas fa-database', 1, 'Y', 'Y'),
-(77, 'Data Beacukai', 'data-beacukai', 'fas fa-database', 1, 'Y', 'Y');
+(77, 'Data Beacukai', 'data-beacukai', 'fas fa-database', 1, 'Y', 'Y'),
+(78, 'Landing Page', '#', 'fas fa-window-restore', 2, 'Y', 'Y');
 
 -- --------------------------------------------------------
 
@@ -537,7 +585,8 @@ INSERT INTO `tbl_submenu` (`id_submenu`, `nama_submenu`, `link`, `icon`, `id_men
 (25, 'Manufaktur', 'manufaktur', 'fas fa-database', 74, 'Y'),
 (26, 'Daftar IMEI', 'daftar-imei', 'fas fa-table', 74, 'Y'),
 (27, 'Bea Cukai', 'beacukai', 'fas fa-database', 74, 'Y'),
-(28, 'Laporan', 'laporan', 'fas fa-paper-plane', 74, 'Y');
+(28, 'Laporan', 'laporan', 'fas fa-paper-plane', 74, 'Y'),
+(29, 'FAQ', 'faq', 'fas fa-question-circle', 78, 'Y');
 
 -- --------------------------------------------------------
 
@@ -635,6 +684,12 @@ ALTER TABLE `tbl_akses_submenu`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_faq`
+--
+ALTER TABLE `tbl_faq`
+  ADD PRIMARY KEY (`id_faq`);
+
+--
 -- Indexes for table `tbl_imei`
 --
 ALTER TABLE `tbl_imei`
@@ -710,13 +765,13 @@ ALTER TABLE `tbl_akses_menu`
 -- AUTO_INCREMENT for table `tbl_akses_submenu`
 --
 ALTER TABLE `tbl_akses_submenu`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=268;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=273;
 
 --
 -- AUTO_INCREMENT for table `tbl_log`
 --
 ALTER TABLE `tbl_log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
 
 --
 -- AUTO_INCREMENT for table `tbl_menu`
@@ -734,7 +789,7 @@ ALTER TABLE `tbl_pending_user`
 -- AUTO_INCREMENT for table `tbl_submenu`
 --
 ALTER TABLE `tbl_submenu`
-  MODIFY `id_submenu` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_submenu` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
