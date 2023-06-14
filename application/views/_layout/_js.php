@@ -38,9 +38,3 @@
 <!-- AdminLTE App -->
 <script src="<?php echo base_url(); ?>assets/dist/js/adminlte.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-<!-- 3. AddChat JS -->
-<!-- Modern browsers -->
-<script type="module" src="<?php echo base_url('assets/addchat/js/addchat.min.js') ?>"></script>
-<!-- Fallback support for Older browsers -->
-<script nomodule src="<?php echo base_url('assets/addchat/js/addchat-legacy.min.js') ?>"></script>
