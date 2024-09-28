@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'c18c8aafeb3aefe20cf161d5106f50735f0b177a',
+    'reference' => 'ea4cfff13fe862f07a7e5a875e8fc66ce65dd151',
     'name' => 'codeigniter/framework',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'c18c8aafeb3aefe20cf161d5106f50735f0b177a',
+      'reference' => 'ea4cfff13fe862f07a7e5a875e8fc66ce65dd151',
     ),
     'doctrine/instantiator' => 
     array (
@@ -46,6 +46,15 @@
       array (
       ),
       'reference' => '12ab42bd6e742c70c0a52f7b82477fcd44e64b75',
+    ),
+    'google/recaptcha' => 
+    array (
+      'pretty_version' => '1.2',
+      'version' => '1.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '3875d025d0465f36f32452f614e7ffc1462c889f',
     ),
     'guzzlehttp/guzzle' => 
     array (
