@@ -13,10 +13,7 @@ class Dashboard extends MY_Controller
         $this->load->model('Mod_user');
         $this->load->model('Mod_userlevel');
         $this->load->model('Mod_dashboard');
-        $this->load->model('Mod_provider');
-        $this->load->model('Mod_manufaktur_imei');
-        $this->load->model('Mod_beacukai');
-        $this->load->model('Mod_laporan');
+        $this->load->model('Mod_ruangan');
         $this->load->model('Mod_log');
 
         // $this->output->enable_profiler(ENVIRONMENT == 'development');
@@ -27,10 +24,7 @@ class Dashboard extends MY_Controller
     {
         $data['judul'] = 'Dashboard';
         $data['user'] = $this->Mod_user->total_rows();
-        $data['imei'] = $this->Mod_provider->total_rows();
-        $data['manufaktur'] = $this->Mod_manufaktur_imei->total_rows();
-        $data['beacukai'] = $this->Mod_beacukai->total_rows();
-        $data['laporan'] = $this->Mod_laporan->total_rows();
+        $data['ruangan'] = $this->Mod_ruangan->total_rows();
 
         $logged_in = $this->session->userdata('logged_in');
         if ($logged_in != TRUE || empty($logged_in)) {
@@ -41,8 +35,6 @@ class Dashboard extends MY_Controller
             $this->template->views('dashboard/home', $data, $js);
         }
 
-        // echo json_encode($data['dataPenelitian']);
-        // echo json_encode($data['dataPKM']);
     }
 
     public function ajax_list()
@@ -75,60 +67,6 @@ class Dashboard extends MY_Controller
         );
         //output to json format
         echo json_encode($output);
-    }
-
-    function getdata()
-    {
-        $post = $this->input->post();
-        $this->id_priode = $post['priode'];
-        echo json_encode($this->id_priode = $post['priode']);
-    }
-
-    function fetch_data()
-    {
-        $penelitian = [];
-        $pkm = [];
-
-        $id = $_POST['idPriode'];
-        // echo json_encode($id);
-        if ($id != null) {
-            // $penelitian = [];
-            $dataPenelitian = $this->Mod_dashboard->get_total_penelitian($id);
-            $dataPKM = $this->Mod_dashboard->get_total_pkm($id);
-            $dataPriode = $this->Mod_priode->get_priode($id);
-
-            foreach ($dataPenelitian->result() as $row) {
-                $penelitian['nama_level'][] = $row->nama_level;
-                $penelitian['total'][] = (int) $row->total;
-            }
-
-            // $data['dataPenelitian'] = json_encode($penelitian);
-
-            // foreach ($dataPenelitian->result_array() as $row) {
-            //     $output[] = array(
-            //         'nama_lv'  => $row["nama_level"],
-            //         'total' => $row["total"]
-            //     );
-            // }
-
-            // return $penelitian;
-            foreach ($dataPKM->result() as $row) {
-                $penelitian['nama_level_pkm'][] = $row->nama_level;
-                $penelitian['totalPKM'][] = (int) $row->total;
-            }
-
-            $penelitian['priode'][] = $dataPriode->priode;
-
-            echo json_encode($penelitian);
-            // foreach ($dataPriode->result_array() as $priode) {
-            //     $output[] = array(
-            //         'priode' => $priode["priode"]
-            //     );
-            // }
-
-
-        }
-        // echo json_encode($output);
     }
 
     function clearLog() {

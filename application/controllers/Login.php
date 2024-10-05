@@ -47,18 +47,10 @@ class Login extends CI_Controller
                         helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
                         $data['url'] = 'dashboard';
                         $hak_akses = 'Admin';
-                    } else if ($checklevel == 'Manufaktur') {
+                    } else if ($checklevel == 'User') {
                         helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
-                        $data['url'] = 'data-imei';
-                        $hak_akses = 'Manufaktur';
-                    } else if ($checklevel == 'Provider') {
-                        helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
-                        $data['url'] = 'data-provider';
-                        $hak_akses = 'Provider';
-                    } else if ($checklevel == 'Bea Cukai') {
-                        helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
-                        $data['url'] = 'data-beacukai';
-                        $hak_akses = 'Bea cukai';
+                        $data['url'] = 'pengajuanruangan';
+                        $hak_akses = 'User';
                     }
 
                     $userdata = array(
