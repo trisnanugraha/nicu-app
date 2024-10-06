@@ -13,7 +13,6 @@ class Dashboard extends MY_Controller
         $this->load->model('Mod_user');
         $this->load->model('Mod_userlevel');
         $this->load->model('Mod_dashboard');
-        $this->load->model('Mod_ruangan');
         $this->load->model('Mod_log');
 
         // $this->output->enable_profiler(ENVIRONMENT == 'development');
@@ -23,10 +22,12 @@ class Dashboard extends MY_Controller
     function index()
     {
         $data['judul'] = 'Dashboard';
-        $data['user'] = $this->Mod_user->total_rows();
-        $data['ruangan'] = $this->Mod_ruangan->total_rows();
-
+        $data['admin'] = $this->Mod_user->total_rows(1);
+        $data['perawat'] = $this->Mod_user->total_rows(2);
+        $data['orangtua'] = $this->Mod_user->total_rows(3);
+        
         $logged_in = $this->session->userdata('logged_in');
+        $data['role'] = $this->session->userdata('hak_akses');
         if ($logged_in != TRUE || empty($logged_in)) {
             redirect('login');
         } else {
@@ -45,7 +46,7 @@ class Dashboard extends MY_Controller
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $log) {
-            // $cekuser = $this->Mod_kelas->getuser($kelas->id_kelas); 
+            // $cekuser = $this->Mod_kelas->getuser($kelas->id_kelas);
             $no++;
             $row = array();
             $row[] = $log->log_username;

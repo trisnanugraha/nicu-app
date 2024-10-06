@@ -2,18 +2,13 @@
   var save_method; //for save method string
   var table;
 
-  $(document).ready(function() {
+  $(document).ready(function () {
 
-    $('.kelas').hide();
-    $('.sindikat').hide();
-    $('.jabatan').hide();
-    $('.angkatan').hide();
-
-    table = $("#tabeluser").DataTable({
+    table = $("#tabelPerawat").DataTable({
       "responsive": true,
       "autoWidth": false,
       "language": {
-        "sEmptyTable": "Data User Masih Kosong"
+        "sEmptyTable": "Data Perawat Masih Kosong"
       },
       "processing": true, //Feature control the processing indicator.
       "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -21,27 +16,27 @@
 
       // Load data for the table's content from an Ajax source
       "ajax": {
-        "url": "<?php echo site_url('user/ajax_list') ?>",
+        "url": "<?php echo site_url('data-perawat/list') ?>",
         "type": "POST"
       },
       //Set column definition initialisation properties.
       "columnDefs": [{
-        "targets": [0, 1, 2, 3, 4, 5],
+        "targets": [0, 1, 2, 3, 4],
         "className": 'text-center'
       }, {
         "targets": [-1], //last column
-        "render": function(data, type, row) {
-          if (row[4] == "N") {
-            return "<div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-primary\" href=\"javascript:void(0)\" title=\"Edit\" onclick=\"edit(" + row[5] + ")\"><i class=\"fas fa-edit\"></i> Ubah</a></div> <div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-danger\" href=\"javascript:void(0)\" title=\"Delete\"  onclick=\"del(" + row[5] + ")\"><i class=\"fas fa-trash\"></i> Hapus</a></div>"
+        "render": function (data, type, row) {
+          if (row[3] == "N") {
+            return "<div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-primary\" href=\"javascript:void(0)\" title=\"Edit\" onclick=\"edit(" + row[4] + ")\"><i class=\"fas fa-edit\"></i> Ubah</a></div> <div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-danger\" href=\"javascript:void(0)\" title=\"Delete\"  onclick=\"del(" + row[4] + ")\"><i class=\"fas fa-trash\"></i> Hapus</a></div>"
           } else {
-            return "<div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-primary\" href=\"javascript:void(0)\" title=\"Edit\" onclick=\"edit(" + row[5] + ")\"><i class=\"fas fa-edit\"></i> Ubah</a></div> <div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-warning\" href=\"javascript:void(0)\" title=\"Reset Password\" onclick=\"reset(" + row[5] + ")\"><i></i> Reset Password</a></div>";
+            return "<div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-primary\" href=\"javascript:void(0)\" title=\"Edit\" onclick=\"edit(" + row[4] + ")\"><i class=\"fas fa-edit\"></i> Ubah</a></div> <div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-warning\" href=\"javascript:void(0)\" title=\"Reset Password\" onclick=\"reset(" + row[4] + ")\"><i></i> Reset Password</a></div>";
           }
         },
         "orderable": false, //set not orderable
       }, {
         "targets": [-2], //last column
-        "render": function(data, type, row) {
-          if (row[5] == "N") {
+        "render": function (data, type, row) {
+          if (row[3] == "N") {
             return "<div class=\"badge bg-danger text-white text-wrap\">Non-Aktif</div>"
           } else {
             return "<div class=\"badge bg-success text-white text-wrap\">Aktif</div>";
@@ -54,36 +49,15 @@
       }],
 
     });
-    $("input").change(function() {
+    $("input").change(function () {
       $(this).parent().parent().removeClass('has-error');
       $(this).next().empty();
       $(this).removeClass('is-invalid');
     });
-    $("textarea").change(function() {
+    $("select").change(function () {
       $(this).parent().parent().removeClass('has-error');
       $(this).next().empty();
       $(this).removeClass('is-invalid');
-    });
-    $("select").change(function() {
-      $(this).parent().parent().removeClass('has-error');
-      $(this).next().empty();
-      $(this).removeClass('is-invalid');
-    });
-    $('select.level').change(function() {
-      var val = $(this).val();
-      if (val === "11" || val === "12" || val === "13" || val === "14" || val === "15") {
-        $('.kelas').hide();
-        $('.angkatan').hide();
-        $('.sindikat').hide();
-        $('.jabatan').show();
-        // $('.subkategori-buku-umum').hide();
-      } else if (val === "6") {
-        $('.kelas').show();
-        $('.sindikat').show();
-        $('.angkatan').show();
-        $('.jabatan').hide();
-
-      }
     });
   });
 
@@ -104,7 +78,7 @@
 
     Swal.fire({
       title: 'Anda Yakin Ingin Mengatur Ulang Password ?',
-      text: "Default Password : password123",
+      text: "Default Password : Secret@2024!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -114,12 +88,12 @@
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          url: "<?php echo site_url('user/reset'); ?>",
+          url: "<?php echo site_url('data-perawat/reset'); ?>",
           type: "POST",
           data: "id=" + id,
           cache: false,
           dataType: 'json',
-          success: function(respone) {
+          success: function (respone) {
             if (respone.status == true) {
               reload_table();
               Swal.fire({
@@ -147,27 +121,27 @@
   //delete
   function del(id) {
     Swal.fire({
-      title: 'Konfirmasi Hapus User',
-      text: "Apakah Anda Yakin Ingin Menghapus User Ini ?",
+      title: 'Konfirmasi Hapus Perawat',
+      text: "Apakah Anda Yakin Ingin Menghapus Perawat Ini ?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya, Hapus User Ini!',
+      confirmButtonText: 'Ya, Hapus Perawat Ini!',
       cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          url: "<?php echo site_url('user/delete'); ?>",
+          url: "<?php echo site_url('data-perawat/delete'); ?>",
           type: "POST",
           data: "id=" + id,
           cache: false,
           dataType: 'json',
-          success: function(respone) {
+          success: function (respone) {
             if (respone.status == true) {
               Swal.fire({
                 icon: 'success',
-                title: 'User Berhasil Dihapus!'
+                title: 'Data Perawat Berhasil Dihapus!'
               });
               reload_table();
             } else {
@@ -194,7 +168,7 @@
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Tambah User'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Tambah Perawat Baru'); // Set Title to Bootstrap modal title
   }
 
   function edit(id) {
@@ -205,26 +179,20 @@
 
     //Ajax Load data from ajax
     $.ajax({
-      url: "<?php echo site_url('user/edit') ?>/" + id,
+      url: "<?php echo site_url('data-perawat/edit') ?>/" + id,
       type: "GET",
       dataType: "JSON",
-      success: function(data) {
+      success: function (data) {
         val = data.id_level
         $('[name="id_user"]').val(data.id_user);
         $('[name="username"]').val(data.username);
         $('[name="full_name"]').val(data.full_name);
-        $('[name="angkatan"]').val(data.id_angkatan);
-        $('[name="kelas"]').val(data.id_kelas);
-        $('[name="sindikat"]').val(data.id_sindikat);
-        $('[name="jabatan"]').val(data.id_jabatan);
         $('[name="is_active"]').val(data.is_active);
-        $('[name="level"]').val(data.id_level);
-
         $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-        $('.modal-title').text('Ubah User'); // Set title to Bootstrap modal title
+        $('.modal-title').text('Ubah Data Perawat'); // Set title to Bootstrap modal title
 
       },
-      error: function(jqXHR, textStatus, errorThrown) {
+      error: function (jqXHR, textStatus, errorThrown) {
         alert('Error get data from ajax');
       }
     });
@@ -235,9 +203,9 @@
     $('#btnSave').attr('disabled', true); //set button disable 
     var url;
     if (save_method == 'add') {
-      url = "<?php echo site_url('user/insert') ?>";
+      url = "<?php echo site_url('data-perawat/insert') ?>";
     } else {
-      url = "<?php echo site_url('user/update') ?>";
+      url = "<?php echo site_url('data-perawat/update') ?>";
     }
     var formdata = new FormData($('#form')[0]);
     $.ajax({
@@ -248,7 +216,7 @@
       cache: false,
       contentType: false,
       processData: false,
-      success: function(data) {
+      success: function (data) {
 
         if (data.status) //if success close modal and reload ajax table
         {
@@ -257,12 +225,12 @@
           if (save_method == 'add') {
             Toast.fire({
               icon: 'success',
-              title: 'User Berhasil Disimpan!'
+              title: 'Perawat Baru Berhasil Disimpan!'
             });
           } else if (save_method == 'update') {
             Toast.fire({
               icon: 'success',
-              title: 'User Berhasil Diubah!'
+              title: 'Data Perawat Berhasil Diubah!'
             });
           }
         } else {
@@ -277,7 +245,7 @@
 
 
       },
-      error: function(jqXHR, textStatus, errorThrown) {
+      error: function (jqXHR, textStatus, errorThrown) {
         alert(textStatus);
         // alert('Error adding / update data');
         Toast.fire({
@@ -294,7 +262,5 @@
   function batal() {
     $('#form')[0].reset();
     reload_table();
-    var image = document.getElementById('v_image');
-    image.src = "";
   }
 </script>

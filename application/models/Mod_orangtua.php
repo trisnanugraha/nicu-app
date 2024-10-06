@@ -1,18 +1,14 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Worksheet\Row;
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Mod_user extends CI_Model
+class Mod_orangtua extends CI_Model
 {
 
-    var $table = 'tbl_user';
-    var $column_order = array('', 'a.full_name', 'a.username', 'b.nama_level', 'a.is_active');
-    var $column_order_orang_tua = array('a.username', 'b.nama_level', 'a.is_active', 'c.id_orangtua', 'c.nama_ayah', 'c.nama_ibu', 'c.alamat', 'c.no_hp');
-    var $column_search = array('a.full_name', 'a.username', 'b.nama_level', 'a.is_active');
-    var $column_search_orang_tua = array('a.username', 'b.nama_level', 'a.is_active', 'c.id_orangtua', 'c.nama_ayah', 'c.nama_ibu', 'c.alamat', 'c.no_hp');
-    var $order = array('a.id_user' => 'desc'); // default order
+    var $table = 'tbl_orangtua';
+    var $column_order = array('', 'full_name', 'username', 'nama_level', 'is_active');
+    var $column_search = array('full_name', 'username', 'nama_level', 'is_active');
+    var $order = array('id_user' => 'desc'); // default order
 
     public function __construct()
     {
@@ -22,28 +18,14 @@ class Mod_user extends CI_Model
 
     private function _get_datatables_query($id_level)
     {
-        if ($id_level != 3) {
-            $this->db->select('a.*,b.nama_level');
-        } else {
-            $this->db->select('a.*,b.nama_level, c.*');
-            $this->db->join('tbl_orang_tua c', 'c.id_user=a.id_user');
-        }
-
+        $this->db->select('a.*,b.nama_level');
         $this->db->join('tbl_userlevel b', 'a.id_level=b.id_level');
         $this->db->from('tbl_user a');
         $this->db->where('deleted !=', 1); // hide users from list when deleted
         $this->db->where('a.id_level =', $id_level); // get only administrator level
         $i = 0;
 
-        if ($id_level != 3) {
-            $search = $this->column_search;
-            $order = $this->column_order;
-        } else {
-            $search = $this->column_search_orang_tua;
-            $order = $this->column_order_orang_tua;
-        }
-
-        foreach ($search as $item) // loop column
+        foreach ($this->column_search as $item) // loop column
         {
             if ($_POST['search']['value']) // if datatable send POST for search
             {
@@ -56,7 +38,7 @@ class Mod_user extends CI_Model
                     $this->db->or_like($item, $_POST['search']['value']);
                 }
 
-                if (count($search) - 1 == $i) //last loop
+                if (count($this->column_search) - 1 == $i) //last loop
                     $this->db->group_end(); //close bracket
             }
             $i++;
@@ -64,7 +46,7 @@ class Mod_user extends CI_Model
 
         if (isset($_POST['order'])) // here order processing
         {
-            $this->db->order_by($order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+            $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
         } else if (isset($this->order)) {
             $order = $this->order;
             $this->db->order_by(key($order), $order[key($order)]);
@@ -149,16 +131,10 @@ class Mod_user extends CI_Model
         return $insert;
     }
 
-    function insert_orang_tua($data)
+    function insert_new_user($data)
     {
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
-    }
-
-    function insert_tbl_orang_tua($data)
-    {
-        $insert = $this->db->insert("tbl_orang_tua", $data);
-        return $insert;
     }
 
     function get_user($id)

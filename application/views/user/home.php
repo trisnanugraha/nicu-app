@@ -6,22 +6,31 @@
         <div class="card">
           <div class="card-header bg-light">
             <div class="text-left">
-              <button type="button" class="btn btn-sm btn-outline-primary" onclick="add()" title="Add Data"><i class="fas fa-plus"></i> Tambah User</button>
-              <button class="btn btn-sm btn-outline-success" title="Import Data" data-toggle="modal" data-target="#import-users"><i class="fas fa-file-import"></i> Import Data</button>
-              <!-- <a href="<?php echo base_url('user/download') ?>" type="button" class="btn btn-sm btn-outline-info" target="_blank" id="dwn_user" title="Download"><i class="fas fa-download"></i> Download</a> -->
+              <button type="button" class="btn btn-sm btn-outline-primary" onclick="add()" title="Add Data"><i
+                  class="fas fa-plus"></i> Tambah <?= $role; ?> Baru</button>
             </div>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <table id="tabeluser" class="table table-bordered table-striped table-hover">
+            <table id="<?= $table; ?>" class="table table-bordered table-striped table-hover">
               <thead>
                 <tr class="bg-info text-center">
-                  <th>No</th>
-                  <th>Nama Lengkap</th>
-                  <th>Username</th>
-                  <th>Hak Akses</th>
-                  <th>Status</th>
-                  <th>Aksi</th>
+                  <?php if ($role != "Orang Tua") { ?>
+                    <th>No</th>
+                    <th>Nama Lengkap</th>
+                    <th>Username</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  <?php } else { ?>
+                    <th>ID Orang Tua</th>
+                    <th>Username</th>
+                    <th>Nama Ayah</th>
+                    <th>Nama Ibu</th>
+                    <th>Alamat</th>
+                    <th>Nomor HP</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  <?php } ?>
                 </tr>
               </thead>
               <tbody>
@@ -39,12 +48,6 @@
   <!-- /.container-fluid -->
 </section>
 
-<?php 
+<?php
 
-echo $modal_tambah_user;
-
-$data['judul'] = 'Import Data Users';
-$data['url'] = 'user/import';
-$data['link'] = 'assets/template/User-Template.xlsx';
-$data['filename'] = 'Users -- Import Template.xlsx';
-echo show_my_modal('modals/modal_import', $data); ?>
+echo $modal_data_user;

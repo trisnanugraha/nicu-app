@@ -14,11 +14,7 @@ class Login extends CI_Controller
     {
         $logged_in = $this->session->userdata('logged_in');
         if ($logged_in == TRUE) {
-            if ($this->session->userdata('id_level') == 1) {
-                redirect('dashboard');
-            } else {
-                redirect('data-imei');
-            }
+            redirect('dashboard');
         } else {
             $aplikasi['aplikasi'] = $this->Mod_login->Aplikasi()->row();
             $this->load->view('admin/login_data', $aplikasi);
@@ -34,7 +30,7 @@ class Login extends CI_Controller
         $status = $this->Mod_login->check_status($username);
 
         if ($this->Mod_login->check_db($username)->num_rows() == 1) {
-            if ($status->is_active != 'N') {
+            if ($status->is_active == 'Y') {
                 $db = $this->Mod_login->check_db($username)->row();
                 $apl = $this->Mod_login->Aplikasi()->row();
 
@@ -43,28 +39,28 @@ class Login extends CI_Controller
 
                     $checklevel = $this->_cek_status($db->id_level);
 
+                    helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
+                    $data['url'] = 'dashboard';
                     if ($checklevel == 'Admin') {
-                        helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
-                        $data['url'] = 'dashboard';
                         $hak_akses = 'Admin';
-                    } else if ($checklevel == 'User') {
-                        helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
-                        $data['url'] = 'pengajuanruangan';
-                        $hak_akses = 'User';
+                    } else if ($checklevel == 'Perawat') {
+                        $hak_akses = 'Perawat';
+                    } else if ($checklevel == 'Orang Tua') {
+                        $hak_akses = 'Orang Tua';
                     }
 
                     $userdata = array(
-                        'id_user'  => $db->id_user,
-                        'username'    => ucfirst($db->username),
-                        'user_name'    => $db->username,
-                        'full_name'   => ucfirst($db->full_name),
-                        'password'    => $db->password,
-                        'id_level'    => $db->id_level,
-                        'aplikasi'    => $apl->nama_aplikasi,
-                        'title'       => $apl->title,
-                        'logo'        => $apl->logo,
-                        'nama_owner'     => $apl->nama_owner,
-                        'logged_in'    => TRUE,
+                        'id_user' => $db->id_user,
+                        'username' => ucfirst($db->username),
+                        'user_name' => $db->username,
+                        'full_name' => ucfirst($db->full_name),
+                        'password' => $db->password,
+                        'id_level' => $db->id_level,
+                        'aplikasi' => $apl->nama_aplikasi,
+                        'title' => $apl->title,
+                        'logo' => $apl->logo,
+                        'nama_owner' => $apl->nama_owner,
+                        'logged_in' => TRUE,
                         'hak_akses' => $hak_akses
                     );
 
@@ -79,18 +75,24 @@ class Login extends CI_Controller
                     helper_log("login", " Gagal Masuk Ke Sistem", $username);
                     echo json_encode($data);
                 }
-            } else {
+            } else if ($status->is_active == 'N' && $status->deleted == 0) {
                 $data['pesan'] = "Akun Anda belum aktif, silakan hubungi Administrator";
                 $data['error'] = TRUE;
                 // $this->fungsi->send_bot($username, " Gagal Masuk Ke Sistem (User Belum Diaktivasi)", "LOGIN");
-                helper_log("login", $username . " Gagal Masuk Ke Sistem (User Belum Diaktivasi)");
+                helper_log("login", $username . " Gagal Masuk Ke Sistem (User Belum Diaktivasi)", $username);
+                echo json_encode($data);
+            } else {
+                $data['pesan'] = "Akun Anda telah dinonaktifkan, silakan hubungi Administrator";
+                $data['error'] = TRUE;
+                // $this->fungsi->send_bot($username, " Gagal Masuk Ke Sistem (User Belum Diaktivasi)", "LOGIN");
+                helper_log("login", $username . " Gagal Masuk Ke Sistem (User Sudah Dinonaktifkan)", $username);
                 echo json_encode($data);
             }
         } else {
             $data['pesan'] = "Username atau Password belum terdaftar!";
             $data['error'] = TRUE;
             // $this->fungsi->send_bot($username, " Gagal Masuk Ke Sistem (User Tidak Terdaftar)", "LOGIN");
-            helper_log("login", $username . " Gagal Masuk Ke Sistem (User Tidak Terdaftar)");
+            helper_log("login", $username . " Gagal Masuk Ke Sistem (User Tidak Terdaftar)", $username);
             echo json_encode($data);
         }
     }

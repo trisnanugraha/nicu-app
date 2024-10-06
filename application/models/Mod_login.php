@@ -25,7 +25,7 @@ class Mod_login extends CI_Model
 
     function check_status($username)
     {
-        $this->db->select('is_active');
+        $this->db->select('is_active, deleted');
         $this->db->where('username', $username);
         return $this->db->get('tbl_user')->row();
     }
