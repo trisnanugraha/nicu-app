@@ -93,7 +93,7 @@
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          url: "<?php echo site_url('data-perawat/reset'); ?>",
+          url: "<?php echo site_url('data-orang-tua/reset'); ?>",
           type: "POST",
           data: "id=" + id,
           cache: false,
@@ -126,8 +126,8 @@
   //delete
   function del(id) {
     Swal.fire({
-      title: 'Konfirmasi Hapus Perawat',
-      text: "Apakah Anda Yakin Ingin Menghapus Perawat Ini ?",
+      title: 'Konfirmasi Hapus Orang Tua',
+      text: "Apakah Anda Yakin Ingin Menghapus Orang Tua Ini ?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -137,7 +137,7 @@
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          url: "<?php echo site_url('data-perawat/delete'); ?>",
+          url: "<?php echo site_url('data-orang-tua/delete'); ?>",
           type: "POST",
           data: "id=" + id,
           cache: false,
@@ -146,7 +146,7 @@
             if (respone.status == true) {
               Swal.fire({
                 icon: 'success',
-                title: 'Data Perawat Berhasil Dihapus!'
+                title: 'Data Orang Tua Berhasil Dihapus!'
               });
               reload_table();
             } else {
@@ -184,17 +184,19 @@
 
     //Ajax Load data from ajax
     $.ajax({
-      url: "<?php echo site_url('data-perawat/edit') ?>/" + id,
+      url: "<?php echo site_url('data-orang-tua/edit') ?>/" + id,
       type: "GET",
       dataType: "JSON",
       success: function (data) {
-        val = data.id_level
         $('[name="id_user"]').val(data.id_user);
         $('[name="username"]').val(data.username);
-        $('[name="full_name"]').val(data.full_name);
+        $('[name="nama_ayah"]').val(data.nama_ayah);
+        $('[name="nama_ibu"]').val(data.nama_ibu);
+        $('[name="alamat"]').val(data.alamat);
+        $('[name="no_hp"]').val(data.no_hp);
         $('[name="is_active"]').val(data.is_active);
         $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-        $('.modal-title').text('Ubah Data Perawat'); // Set title to Bootstrap modal title
+        $('.modal-title').text('Ubah Data Orang Tua'); // Set title to Bootstrap modal title
 
       },
       error: function (jqXHR, textStatus, errorThrown) {

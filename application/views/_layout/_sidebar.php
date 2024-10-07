@@ -8,8 +8,9 @@ $apl = $this->db->get("aplikasi")->row();
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="<?php echo base_url(); ?>" class="brand-link">
-        <img src="<?php echo base_url(); ?>assets/foto/logo/<?php echo $apl->logo; ?>" alt="<?php echo $apl->title; ?>" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light"><?php echo  $apl->title; ?></span>
+        <img src="<?php echo base_url(); ?>assets/foto/logo/<?php echo $apl->logo; ?>" alt="<?php echo $apl->title; ?>"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light"><?php echo $apl->title; ?></span>
     </a>
 
     <!-- Sidebar -->
@@ -32,7 +33,7 @@ $apl = $this->db->get("aplikasi")->row();
                with font-awesome or any other icon font library -->
                 <?php
                 // data main menu
-                $idlevel  = $this->session->userdata['id_level'];
+                $idlevel = $this->session->userdata['id_level'];
                 $main_menu = $this->db->select('b.nama_menu,b.icon,b.link,b.id_menu');
                 $main_menu = $this->db->join('tbl_menu b', 'a.id_menu=b.id_menu');
                 $main_menu = $this->db->join('tbl_userlevel c', 'a.id_level=c.id_level');
@@ -41,7 +42,7 @@ $apl = $this->db->get("aplikasi")->row();
                 $main_menu = $this->db->order_by('urutan ASC');
                 $main_menu = $this->db->get('tbl_akses_menu a');
                 foreach ($main_menu->result() as $main) {
-                    $idlevel  = $this->session->userdata['id_level'];
+                    $idlevel = $this->session->userdata['id_level'];
 
                     $sub_menu = $this->db->join('tbl_submenu b', 'a.id_submenu=b.id_submenu');
                     $sub_menu = $this->db->where('a.id_level', $idlevel);
@@ -51,7 +52,7 @@ $apl = $this->db->get("aplikasi")->row();
                     $sub_menu = $this->db->get('tbl_akses_submenu a');
 
                     if ($sub_menu->num_rows() > 0) {
-                        $segmen   = $this->uri->segment(1);
+                        $segmen = $this->uri->segment(1);
                         $submenu = $this->db->select('link');
                         $submenu = $this->db->where('id_menu', $main->id_menu);
                         $submenu = $this->db->where('link', $segmen);
@@ -61,7 +62,7 @@ $apl = $this->db->get("aplikasi")->row();
                             $sub = $submenu->row();
                             $link = $sub->link;
                         }
-                ?>
+                        ?>
                         <li class="nav-item has-treeview <?= $this->uri->segment(1) == $link ? 'menu-open' : '' ?>">
 
                             <a href="<?= $main->link; ?>" <?= $this->uri->segment(1) == $link ? 'class="nav-link active"' : 'class="nav-link"' ?>>
@@ -72,7 +73,7 @@ $apl = $this->db->get("aplikasi")->row();
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <?php foreach ($sub_menu->result() as $sub) : ?>
+                                <?php foreach ($sub_menu->result() as $sub): ?>
                                     <li class="nav-item">
                                         <a href="<?= $sub->link; ?>" <?= $this->uri->segment(1) == $sub->link ? 'class="nav-link active"' : 'class="nav-link"' ?>>
                                             <i class="<?= $sub->icon; ?> nav-icon"></i>
@@ -92,7 +93,7 @@ $apl = $this->db->get("aplikasi")->row();
                                 </p>
                             </a>
                         </li>
-                <?php }
+                    <?php }
                 } ?>
                 <li class="nav-item">
                     <a href="<?= base_url('login/logout') ?>" class="nav-link">

@@ -167,6 +167,17 @@ class Mod_user extends CI_Model
         return $this->db->get($this->table)->row();
     }
 
+    function get_user_orangtua($id)
+{
+    // Menggunakan query builder untuk join
+    $this->db->select('u.*, o.*'); // Memilih semua kolom dari tbl_user (u) dan tbl_orangtua (o)
+    $this->db->from($this->table . ' u'); // Alias untuk tbl_user
+    $this->db->join('tbl_orang_tua o', 'u.id_user = o.id_user', 'left'); // Melakukan join dengan tbl_orangtua
+    $this->db->where('u.id_user', $id); // Menentukan kondisi where
+
+    return $this->db->get()->row(); // Mengambil hasil sebagai objek
+}
+
     function get_user_by_role($id)
     {
         $this->db->where('id_level', $id);
@@ -177,6 +188,12 @@ class Mod_user extends CI_Model
     {
         $this->db->where('id_user', $id);
         $this->db->update($this->table, $data);
+    }
+
+    function update_orangtua($id, $data)
+    {
+        $this->db->where('id_user', $id);
+        $this->db->update("tbl_orang_tua", $data);
     }
 
     function update_status($id)

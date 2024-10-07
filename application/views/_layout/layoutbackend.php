@@ -2,7 +2,7 @@
 <?php
 $this->load->view('templates/header')
 
-?>
+  ?>
 <!-- end header -->
 
 <!-- menu -->

@@ -138,36 +138,58 @@ class User extends MY_Controller
         $this->load->view('admin/view', $data);
     }
 
-    public function edit($id)
+    public function edit($id, $role)
     {
-        $data = $this->Mod_user->get_user($id);
+        if ($role != 'Orang Tua') {
+            $data = $this->Mod_user->get_user($id);
+        } else {
+            $data = $this->Mod_user->get_user_orangtua($id);
+        }
+
         echo json_encode($data);
     }
 
 
-    public function update()
+    public function update($role)
     {
-        $this->_validate("update");
+        $this->_validate("update", $role);
 
         $id = $this->input->post('id_user');
+
+        if ($role != 'Orang Tua') {
+            $full_name = $this->input->post('full_name');
+        } else {
+            $full_name = "Orang Tua";
+        }
 
         //Jika Password tidak kosong
         if ($this->input->post('password')) {
             $save = array(
                 'username' => $this->input->post('username'),
-                'full_name' => $this->input->post('full_name'),
+                'full_name' => $full_name,
                 'password' => get_hash($this->input->post('password')),
                 'is_active' => $this->input->post('is_active')
             );
         } else { //Jika password kosong
             $save = array(
                 'username' => $this->input->post('username'),
-                'full_name' => $this->input->post('full_name'),
+                'full_name' => $full_name,
                 'is_active' => $this->input->post('is_active')
             );
         }
 
         $this->Mod_user->update($id, $save);
+
+        if ($role == 'Orang Tua') {
+            $save = array(
+                'nama_ayah' => $this->input->post('nama_ayah'),
+                'nama_ibu' => $this->input->post('nama_ibu'),
+                'alamat' => $this->input->post('alamat'),
+                'no_hp' => $this->input->post('no_hp')
+            );
+            $this->Mod_user->update_orangtua($id, $save);
+        }
+
         echo json_encode(array("status" => TRUE));
     }
 
