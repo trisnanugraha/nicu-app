@@ -8,7 +8,7 @@
       "responsive": true,
       "autoWidth": false,
       "language": {
-        "sEmptyTable": "Data Perawat Masih Kosong"
+        "sEmptyTable": "Data Masih Kosong"
       },
       "processing": true, //Feature control the processing indicator.
       "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -121,13 +121,13 @@
   //delete
   function del(id) {
     Swal.fire({
-      title: 'Konfirmasi Hapus Perawat',
-      text: "Apakah Anda Yakin Ingin Menghapus Perawat Ini ?",
+      title: 'Konfirmasi Hapus Data',
+      text: "Apakah Anda Yakin Ingin Menghapus Data Ini ?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya, Hapus Perawat Ini!',
+      confirmButtonText: 'Ya, Hapus Data Ini!',
       cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.value) {
@@ -141,7 +141,7 @@
             if (respone.status == true) {
               Swal.fire({
                 icon: 'success',
-                title: 'Data Perawat Berhasil Dihapus!'
+                title: 'Data Berhasil Dihapus!'
               });
               reload_table();
             } else {
@@ -168,7 +168,7 @@
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Tambah Perawat Baru'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Tambah Data Baru'); // Set Title to Bootstrap modal title
   }
 
   function edit(id) {
@@ -189,7 +189,7 @@
         $('[name="full_name"]').val(data.full_name);
         $('[name="is_active"]').val(data.is_active);
         $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-        $('.modal-title').text('Ubah Data Perawat'); // Set title to Bootstrap modal title
+        $('.modal-title').text('Ubah Data'); // Set title to Bootstrap modal title
 
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -225,12 +225,12 @@
           if (save_method == 'add') {
             Toast.fire({
               icon: 'success',
-              title: 'Perawat Baru Berhasil Disimpan!'
+              title: 'Data Berhasil Disimpan!'
             });
           } else if (save_method == 'update') {
             Toast.fire({
               icon: 'success',
-              title: 'Data Perawat Berhasil Diubah!'
+              title: 'Data Berhasil Diubah!'
             });
           }
         } else {

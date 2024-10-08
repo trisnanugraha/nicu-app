@@ -1,6 +1,5 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -96,12 +95,6 @@ class Mod_user extends CI_Model
         return $this->db->count_all_results();
     }
 
-    function view_user($id)
-    {
-        $this->db->where('id_user', $id);
-        return $this->db->get('tbl_user');
-    }
-
     function getAll()
     {
         $this->db->select('a.*,b.nama_level');
@@ -121,19 +114,12 @@ class Mod_user extends CI_Model
             ->result();
     }
 
-    function get_all_mahasiswa_dosen($id)
+    function get_all_orangtua()
     {
-        $this->db->where('id_level !=', 1);
-        $this->db->where('id_level !=', 8);
-        $this->db->where('id_user !=', $id);
-        return $this->db->get($this->table)
-            ->result();
-    }
-
-    function get_all_mahasiswa()
-    {
-        $this->db->where('id_level =', 6);
-        return $this->db->get($this->table)
+        $this->db->select('a.*,b.*');
+        $this->db->join('tbl_orang_tua b', 'a.id_user = b.id_user');
+        $this->db->where('id_level =', 3);
+        return $this->db->get($this->table . ' a')
             ->result();
     }
 
@@ -168,15 +154,15 @@ class Mod_user extends CI_Model
     }
 
     function get_user_orangtua($id)
-{
-    // Menggunakan query builder untuk join
-    $this->db->select('u.*, o.*'); // Memilih semua kolom dari tbl_user (u) dan tbl_orangtua (o)
-    $this->db->from($this->table . ' u'); // Alias untuk tbl_user
-    $this->db->join('tbl_orang_tua o', 'u.id_user = o.id_user', 'left'); // Melakukan join dengan tbl_orangtua
-    $this->db->where('u.id_user', $id); // Menentukan kondisi where
+    {
+        // Menggunakan query builder untuk join
+        $this->db->select('u.*, o.*'); // Memilih semua kolom dari tbl_user (u) dan tbl_orangtua (o)
+        $this->db->from($this->table . ' u'); // Alias untuk tbl_user
+        $this->db->join('tbl_orang_tua o', 'u.id_user = o.id_user', 'left'); // Melakukan join dengan tbl_orangtua
+        $this->db->where('u.id_user', $id); // Menentukan kondisi where
 
-    return $this->db->get()->row(); // Mengambil hasil sebagai objek
-}
+        return $this->db->get()->row(); // Mengambil hasil sebagai objek
+    }
 
     function get_user_by_role($id)
     {
@@ -218,29 +204,6 @@ class Mod_user extends CI_Model
             ->result();
     }
 
-    function userlevelRegister()
-    {
-        $this->db->where('id_level !=', 1);
-        return $this->db->order_by('id_level ASC')
-            ->get('tbl_userlevel')
-            ->result();
-    }
-
-    function prodi()
-    {
-        return $this->db->order_by('id_prodi ASC')
-            ->get('tbl_program_studi')
-            ->result();
-    }
-
-    function get_pass_foto($id)
-    {
-        $this->db->select('pass_foto');
-        $this->db->from('tbl_user');
-        $this->db->where('id_user', $id);
-        return $this->db->get();
-    }
-
     function reset_pass($id, $data)
     {
         $this->db->where('id_user', $id);
@@ -249,6 +212,7 @@ class Mod_user extends CI_Model
 
     function total_rows($id_level)
     {
+        $this->db->where('deleted', 0);
         $this->db->where('id_level', $id_level);
         $data = $this->db->get($this->table);
 

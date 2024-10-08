@@ -4,7 +4,14 @@
 
   $(document).ready(function () {
 
-    table = $("#tabelAdmin").DataTable({
+    $('#id_orangtua').select2()
+
+    //Date picker
+    $('#tgl_lahir').datetimepicker({
+      format: 'L'
+    });
+
+    table = $("#tabelBayi").DataTable({
       "responsive": true,
       "autoWidth": false,
       "language": {
@@ -16,32 +23,19 @@
 
       // Load data for the table's content from an Ajax source
       "ajax": {
-        "url": "<?php echo site_url('data-admin/list') ?>",
+        "url": "<?php echo site_url('data-bayi/list') ?>",
         "type": "POST"
       },
       //Set column definition initialisation properties.
       "columnDefs": [{
-        "targets": [0, 1, 2, 3, 4],
+        "targets": [0, 1, 2, 3, 4, 5],
         "className": 'text-center'
       }, {
         "targets": [-1], //last column
         "render": function (data, type, row) {
-          if (row[3] == "N") {
-            return "<div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-primary\" href=\"javascript:void(0)\" title=\"Edit\" onclick=\"edit(" + row[4] + ")\"><i class=\"fas fa-edit\"></i> Ubah</a></div> <div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-danger\" href=\"javascript:void(0)\" title=\"Delete\"  onclick=\"del(" + row[4] + ")\"><i class=\"fas fa-trash\"></i> Hapus</a></div>"
-          } else {
-            return "<div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-primary\" href=\"javascript:void(0)\" title=\"Edit\" onclick=\"edit(" + row[4] + ")\"><i class=\"fas fa-edit\"></i> Ubah</a></div> <div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-warning\" href=\"javascript:void(0)\" title=\"Reset Password\" onclick=\"reset(" + row[4] + ")\"><i></i> Reset Password</a></div>";
-          }
+          return "<div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-primary\" href=\"javascript:void(0)\" title=\"Edit\" onclick=\"edit('" + row[0] + "')\"><i class=\"fas fa-edit\"></i> Ubah</a></div> <div class=\"d-inline mx-1\"><a class=\"btn btn-xs btn-outline-danger\" href=\"javascript:void(0)\" title=\"Delete\"  onclick=\"del('" + row[0] + "')\"><i class=\"fas fa-trash\"></i> Hapus</a></div>"
         },
         "orderable": false, //set not orderable
-      }, {
-        "targets": [-2], //last column
-        "render": function (data, type, row) {
-          if (row[3] == "N") {
-            return "<div class=\"badge bg-danger text-white text-wrap\">Non-Aktif</div>"
-          } else {
-            return "<div class=\"badge bg-success text-white text-wrap\">Aktif</div>";
-          }
-        }
       }, {
         "searchable": false,
         "orderable": false,
@@ -54,7 +48,7 @@
       $(this).next().empty();
       $(this).removeClass('is-invalid');
     });
-    $("select").change(function () {
+    $(".orangtua").change(function () {
       $(this).parent().parent().removeClass('has-error');
       $(this).next().empty();
       $(this).removeClass('is-invalid');
@@ -72,52 +66,6 @@
     timer: 3000
   });
 
-  // Button Tabel
-
-  function reset(id) {
-
-    Swal.fire({
-      title: 'Anda Yakin Ingin Mengatur Ulang Password ?',
-      text: "Default Password : Secret@2024!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya, Atur Ulang Password!',
-      cancelButtonText: 'Batal'
-    }).then((result) => {
-      if (result.value) {
-        $.ajax({
-          url: "<?php echo site_url('data-admin/reset'); ?>",
-          type: "POST",
-          data: "id=" + id,
-          cache: false,
-          dataType: 'json',
-          success: function (respone) {
-            if (respone.status == true) {
-              reload_table();
-              Swal.fire({
-                icon: 'success',
-                title: 'Password Berhasil Diatur Ulang!',
-              });
-            } else {
-              Toast.fire({
-                icon: 'error',
-                title: 'Reset password Error!!.'
-              });
-            }
-          }
-        });
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
-      }
-    })
-  }
-
   //delete
   function del(id) {
     Swal.fire({
@@ -132,7 +80,7 @@
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          url: "<?php echo site_url('data-admin/delete'); ?>",
+          url: "<?php echo site_url('data-bayi/delete'); ?>",
           type: "POST",
           data: "id=" + id,
           cache: false,
@@ -172,6 +120,8 @@
   }
 
   function edit(id) {
+    var id_bayi = id;
+    console.log(id)
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
@@ -179,15 +129,15 @@
 
     //Ajax Load data from ajax
     $.ajax({
-      url: "<?php echo site_url('data-admin/edit') ?>/" + id,
+      url: "<?php echo site_url('data-bayi/edit') ?>/" + id_bayi,
       type: "GET",
       dataType: "JSON",
       success: function (data) {
-        val = data.id_level
-        $('[name="id_user"]').val(data.id_user);
-        $('[name="username"]').val(data.username);
-        $('[name="full_name"]').val(data.full_name);
-        $('[name="is_active"]').val(data.is_active);
+        $('[name="id_bayi"]').val(data.id_bayi);
+        $('[name="id_orangtua"]').val(data.id_orangtua);
+        $('[name="nama_bayi"]').val(data.nama_bayi);
+        $('[name="jenis_kelamin"]').val(data.jenis_kelamin);
+        $('[name="tgl_lahir"]').val(data.tgl_lahir);
         $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
         $('.modal-title').text('Ubah Data'); // Set title to Bootstrap modal title
 
@@ -203,9 +153,9 @@
     $('#btnSave').attr('disabled', true); //set button disable 
     var url;
     if (save_method == 'add') {
-      url = "<?php echo site_url('data-admin/insert') ?>";
+      url = "<?php echo site_url('data-bayi/insert') ?>";
     } else {
-      url = "<?php echo site_url('data-admin/update') ?>";
+      url = "<?php echo site_url('data-bayi/update') ?>";
     }
     var formdata = new FormData($('#form')[0]);
     $.ajax({
@@ -240,6 +190,7 @@
             $('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[i]).addClass('invalid-feedback');
           }
         }
+        // $('#id_orangtua').select2();
         $('#btnSave').text('Simpan'); //change button text
         $('#btnSave').attr('disabled', false); //set button enable 
 

@@ -9,7 +9,7 @@ class Backup extends CI_Controller
 		$this->load->dbutil();
 		$aturan = array(
 			'format'	=> 'zip',
-			'filename'	=> 'my_db_backup.sql'
+			'filename'	=> 'nicu_db_backup.sql'
 		);
 
 		$backup= $this->dbutil->backup($aturan);

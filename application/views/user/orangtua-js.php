@@ -8,7 +8,7 @@
       "responsive": true,
       "autoWidth": false,
       "language": {
-        "sEmptyTable": "Data Orang Tua Masih Kosong"
+        "sEmptyTable": "Data Masih Kosong"
       },
       "processing": true, //Feature control the processing indicator.
       "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -126,13 +126,13 @@
   //delete
   function del(id) {
     Swal.fire({
-      title: 'Konfirmasi Hapus Orang Tua',
-      text: "Apakah Anda Yakin Ingin Menghapus Orang Tua Ini ?",
+      title: 'Konfirmasi Hapus Data',
+      text: "Apakah Anda Yakin Ingin Menghapus Data Ini ?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya, Hapus Perawat Ini!',
+      confirmButtonText: 'Ya, Hapus Data Ini!',
       cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.value) {
@@ -146,7 +146,7 @@
             if (respone.status == true) {
               Swal.fire({
                 icon: 'success',
-                title: 'Data Orang Tua Berhasil Dihapus!'
+                title: 'Data Berhasil Dihapus!'
               });
               reload_table();
             } else {
@@ -173,7 +173,7 @@
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Tambah Orang Tua Baru'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Tambah Data Baru'); // Set Title to Bootstrap modal title
   }
 
   function edit(id) {
@@ -196,7 +196,7 @@
         $('[name="no_hp"]').val(data.no_hp);
         $('[name="is_active"]').val(data.is_active);
         $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-        $('.modal-title').text('Ubah Data Orang Tua'); // Set title to Bootstrap modal title
+        $('.modal-title').text('Ubah Data'); // Set title to Bootstrap modal title
 
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -232,12 +232,12 @@
           if (save_method == 'add') {
             Toast.fire({
               icon: 'success',
-              title: 'Data Orang Tua Baru Berhasil Disimpan!'
+              title: 'Data Berhasil Disimpan!'
             });
           } else if (save_method == 'update') {
             Toast.fire({
               icon: 'success',
-              title: 'Data Orang Tua Berhasil Diubah!'
+              title: 'Data Berhasil Diubah!'
             });
           }
         } else {

@@ -11,12 +11,10 @@ class Dashboard extends MY_Controller
         $this->load->library('user_agent');
         $this->load->helper('myfunction_helper');
         $this->load->model('Mod_user');
+        $this->load->model('Mod_bayi');
         $this->load->model('Mod_userlevel');
         $this->load->model('Mod_dashboard');
         $this->load->model('Mod_log');
-
-        // $this->output->enable_profiler(ENVIRONMENT == 'development');
-        // backButtonHandle();
     }
 
     function index()
@@ -25,7 +23,8 @@ class Dashboard extends MY_Controller
         $data['admin'] = $this->Mod_user->total_rows(1);
         $data['perawat'] = $this->Mod_user->total_rows(2);
         $data['orangtua'] = $this->Mod_user->total_rows(3);
-        
+        $data['bayi'] = $this->Mod_bayi->total_rows();
+
         $logged_in = $this->session->userdata('logged_in');
         $data['role'] = $this->session->userdata('hak_akses');
         if ($logged_in != TRUE || empty($logged_in)) {
@@ -35,7 +34,25 @@ class Dashboard extends MY_Controller
             $js = $this->load->view('dashboard/dashboard-js', null, true);
             $this->template->views('dashboard/home', $data, $js);
         }
+    }
 
+    function index_orangtua()
+    {
+        $data['judul'] = 'Dashboard';
+        $id_orangtua = $this->Mod_user->get_user_orangtua($this->session->userdata('id_user'))->id_orangtua;
+        $data['bayi'] = $this->Mod_bayi->get_bayi_orangtua($id_orangtua);
+
+        $logged_in = $this->session->userdata('logged_in');
+        $data['role'] = $this->session->userdata('hak_akses');
+        if ($logged_in != TRUE || empty($logged_in)) {
+            redirect('login');
+        } else {
+            // $this->template->load('layoutbackend', 'dashboard/view_dashboard', $data);
+            $js = $this->load->view('dashboard/dashboard-orangtua-js', null, true);
+            $this->template->views('dashboard/home-orangtua', $data, $js);
+        }
+
+        // echo print_r( json_encode( $data ) );
     }
 
     public function ajax_list()
@@ -70,7 +87,8 @@ class Dashboard extends MY_Controller
         echo json_encode($output);
     }
 
-    function clearLog() {
+    function clearLog()
+    {
         $this->Mod_log->clear_log();
         $data['status'] = TRUE;
         echo json_encode($data);

@@ -14,7 +14,12 @@ class Login extends CI_Controller
     {
         $logged_in = $this->session->userdata('logged_in');
         if ($logged_in == TRUE) {
-            redirect('dashboard');
+            if ($this->session->userdata('hak_akses') != 'Orang Tua') {
+                redirect('dashboard');
+            } else {
+                redirect('home');
+
+            }
         } else {
             $aplikasi['aplikasi'] = $this->Mod_login->Aplikasi()->row();
             $this->load->view('admin/login_data', $aplikasi);
@@ -40,13 +45,15 @@ class Login extends CI_Controller
                     $checklevel = $this->_cek_status($db->id_level);
 
                     helper_log("login", "Berhasil Masuk Ke Sistem", $db->username);
-                    $data['url'] = 'dashboard';
                     if ($checklevel == 'Admin') {
                         $hak_akses = 'Admin';
+                        $data['url'] = 'dashboard';
                     } else if ($checklevel == 'Perawat') {
                         $hak_akses = 'Perawat';
+                        $data['url'] = 'dashboard';
                     } else if ($checklevel == 'Orang Tua') {
                         $hak_akses = 'Orang Tua';
+                        $data['url'] = 'home';
                     }
 
                     $userdata = array(

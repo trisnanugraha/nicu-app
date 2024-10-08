@@ -15,20 +15,12 @@
             <table id="<?= $table; ?>" class="table table-bordered table-striped table-hover">
               <thead>
                 <tr class="bg-info text-center">
+                  <th>ID Bayi</th>
+                  <th>ID Orang Tua</th>
+                  <th>Nama Lengkap</th>
+                  <th>Jenis Kelamin</th>
+                  <th>Tanggal Lahir</th>
                   <?php if ($role != "Orang Tua") { ?>
-                    <th>No</th>
-                    <th>Nama Lengkap</th>
-                    <th>Username</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                  <?php } else { ?>
-                    <th>ID Orang Tua</th>
-                    <th>Username</th>
-                    <th>Nama Ayah</th>
-                    <th>Nama Ibu</th>
-                    <th>Alamat</th>
-                    <th>Nomor HP</th>
-                    <th>Status</th>
                     <th>Aksi</th>
                   <?php } ?>
                 </tr>
@@ -50,4 +42,4 @@
 
 <?php
 
-echo $modal_data_user;
+echo $modal_data_bayi;

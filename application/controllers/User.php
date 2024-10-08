@@ -15,6 +15,7 @@ class User extends MY_Controller
     public function index($role)
     {
         $this->load->helper('url');
+
         if ($role == "Admin") {
             $data['judul'] = 'Manajemen Admin';
             $data['table'] = 'tabelAdmin';
@@ -128,16 +129,6 @@ class User extends MY_Controller
         echo json_encode(array("status" => TRUE));
     }
 
-    public function viewuser()
-    {
-        $id = $this->input->post('id');
-        $table = $this->input->post('table');
-        $data['table'] = $table;
-        $data['data_field'] = $this->db->field_data($table);
-        $data['data_table'] = $this->Mod_user->view_user($id)->result_array();
-        $this->load->view('admin/view', $data);
-    }
-
     public function edit($id, $role)
     {
         if ($role != 'Orang Tua') {
@@ -208,24 +199,6 @@ class User extends MY_Controller
             'password' => get_hash('Secret@2024!')
         );
         $this->Mod_user->reset_pass($id, $data);
-        $data['status'] = TRUE;
-        echo json_encode($data);
-    }
-
-    public function setStatus()
-    {
-        $id = $this->input->post('id');
-
-        if ($this->input->post('status') == 'N') {
-            $status = 'Y';
-        } else if ($this->input->post('status') == 'Y') {
-            $status = 'N';
-        }
-
-        $data = array(
-            'is_active' => $status
-        );
-        $this->Mod_user->update($id, $data);
         $data['status'] = TRUE;
         echo json_encode($data);
     }

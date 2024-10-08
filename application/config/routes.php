@@ -31,6 +31,21 @@ $route['data-orang-tua/edit/(:num)'] = 'User/edit/$1/Orang Tua';
 $route['data-orang-tua/update'] = 'User/update/Orang Tua';
 $route['data-orang-tua/delete'] = 'User/delete';
 $route['data-orang-tua/reset'] = 'User/reset';
+$route['home'] = 'dashboard/index_orangtua';
+
+//Routing Menu for Bayi
+$route['data-bayi'] = 'Bayi/index/Perawat';
+$route['data-bayi/list'] = 'Bayi/ajax_list';
+$route['data-bayi/insert'] = 'Bayi/insert';
+$route['data-bayi/edit/(:any)'] = 'Bayi/edit/$1';
+$route['data-bayi/update'] = 'Bayi/update';
+$route['data-bayi/delete'] = 'Bayi/delete';
+
+
+
+
+
+
 
 
 

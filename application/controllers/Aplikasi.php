@@ -1,9 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
 class Aplikasi extends MY_Controller
 {
     function __construct()
@@ -68,22 +65,22 @@ class Aplikasi extends MY_Controller
             $id = $this->input->post('id');
 
             $nama = slug($this->input->post('logo'));
-            $config['upload_path']   = './assets/foto/logo/';
+            $config['upload_path'] = './assets/foto/logo/';
             $config['allowed_types'] = 'gif|jpg|jpeg|png'; //mencegah upload backdor
-            $config['max_size']      = '1000';
-            $config['max_width']     = '2000';
-            $config['max_height']    = '1024';
-            $config['file_name']     = $nama;
+            $config['max_size'] = '1000';
+            $config['max_width'] = '2000';
+            $config['max_height'] = '1024';
+            $config['file_name'] = $nama;
 
             $this->upload->initialize($config);
 
             if ($this->upload->do_upload('imagefile')) {
                 $gambar = $this->upload->data();
-                $save  = array(
+                $save = array(
                     'nama_owner' => $this->input->post('nama_owner'),
                     'title' => $this->input->post('title'),
-                    'nama_aplikasi'  => $this->input->post('nama_aplikasi'),
-                    'copy_right'  => $this->input->post('copy_right'),
+                    'nama_aplikasi' => $this->input->post('nama_aplikasi'),
+                    'copy_right' => $this->input->post('copy_right'),
                     'tahun' => $this->input->post('tahun'),
                     'versi' => $this->input->post('versi'),
                     'logo' => $gambar['file_name']
@@ -99,11 +96,11 @@ class Aplikasi extends MY_Controller
                 $this->Mod_aplikasi->updateAplikasi($id, $save);
                 echo json_encode(array("status" => TRUE));
             } else { //Apabila tidak ada gambar yang di upload
-                $save  = array(
+                $save = array(
                     'nama_owner' => $this->input->post('nama_owner'),
                     'title' => $this->input->post('title'),
-                    'nama_aplikasi'  => $this->input->post('nama_aplikasi'),
-                    'copy_right'  => $this->input->post('copy_right'),
+                    'nama_aplikasi' => $this->input->post('nama_aplikasi'),
+                    'copy_right' => $this->input->post('copy_right'),
                     'tahun' => $this->input->post('tahun'),
                     'versi' => $this->input->post('versi')
                 );
@@ -113,13 +110,13 @@ class Aplikasi extends MY_Controller
         } else {
             $this->_validate();
             $id = $this->input->post('id');
-            $save  = array(
+            $save = array(
                 'nama_owner' => $this->input->post('nama_owner'),
-                'alamat'    => $this->input->post('alamat'),
-                'tlp'       => $this->input->post('tlp'),
+                'alamat' => $this->input->post('alamat'),
+                'tlp' => $this->input->post('tlp'),
                 'title' => $this->input->post('title'),
-                'nama_aplikasi'  => $this->input->post('nama_aplikasi'),
-                'copy_right'  => $this->input->post('copy_right'),
+                'nama_aplikasi' => $this->input->post('nama_aplikasi'),
+                'copy_right' => $this->input->post('copy_right'),
                 'tahun' => $this->input->post('tahun'),
                 'versi' => $this->input->post('versi')
             );
@@ -182,42 +179,5 @@ class Aplikasi extends MY_Controller
             echo json_encode($data);
             exit();
         }
-    }
-
-
-    public function download()
-    {
-
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A1', 'No');
-        $sheet->setCellValue('B1', 'Nama Aplikasi');
-        $sheet->setCellValue('C1', 'Nama Owner');
-        $sheet->setCellValue('D1', 'No Telp');
-        $sheet->setCellValue('E1', 'Title');
-        $sheet->setCellValue('F1', 'Copy Right');
-        $sheet->setCellValue('G1', 'Alamat');
-
-        $aplikasi = $this->Mod_aplikasi->getAll()->result();
-        $no = 1;
-        $x = 2;
-        foreach ($aplikasi as $row) {
-            $sheet->setCellValue('A' . $x, $no++);
-            $sheet->setCellValue('B' . $x, $row->nama_aplikasi);
-            $sheet->setCellValue('C' . $x, $row->nama_owner);
-            $sheet->setCellValue('D' . $x, $row->tlp);
-            $sheet->setCellValue('E' . $x, $row->title);
-            $sheet->setCellValue('F' . $x, $row->copy_right);
-            $sheet->setCellValue('G' . $x, $row->alamat);
-            $x++;
-        }
-        $writer = new Xlsx($spreadsheet);
-        $filename = 'laporan-Aplikasi';
-
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
-        header('Cache-Control: max-age=0');
-
-        $writer->save('php://output');
     }
 }

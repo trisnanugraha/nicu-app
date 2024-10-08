@@ -1,26 +1,74 @@
 <?php
 date_default_timezone_set('Asia/Jakarta');
 
+function format_tanggal($date)
+{
+	// Mengubah format dari YYYY-MM-DD menjadi objek DateTime
+	$datetime = DateTime::createFromFormat('Y-m-d', $date);
+
+	// Memastikan objek DateTime valid
+	if ($datetime) {
+		// Mendapatkan tanggal dan bulan dalam teks
+		$day = $datetime->format('d');
+		$month = $datetime->format('F'); // Bulan dalam teks (January, February, dst)
+		$year = $datetime->format('Y');
+
+		// Daftar bulan dalam bahasa Indonesia
+		$months_id = [
+			'January' => 'Januari',
+			'February' => 'Februari',
+			'March' => 'Maret',
+			'April' => 'April',
+			'May' => 'Mei',
+			'June' => 'Juni',
+			'July' => 'Juli',
+			'August' => 'Agustus',
+			'September' => 'September',
+			'October' => 'Oktober',
+			'November' => 'November',
+			'December' => 'Desember'
+		];
+
+		// Mengubah bulan ke bahasa Indonesia
+		$month_id = $months_id[$month] ?? $month;
+
+		// Mengembalikan format yang diinginkan
+		return "$day $month_id $year";
+	}
+
+	return null; // Jika tanggal tidak valid
+}
+
 function tgl_indonesia($date)
 {
 	/* array hari dan bulan */
-	$nama_hari  = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu");
+	$nama_hari = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu");
 
 	$nama_bulan = array(
-		"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
-		"November", "Desember"
+		"Januari",
+		"Februari",
+		"Maret",
+		"April",
+		"Mei",
+		"Juni",
+		"Juli",
+		"Agustus",
+		"September",
+		"Oktober",
+		"November",
+		"Desember"
 	);
 
 	/*  Memisahkan format tanggal, bulan, tahun dengan substring */
-	$tahun   = substr($date, 0, 4);
-	$bulan   = substr($date, 5, 2);
+	$tahun = substr($date, 0, 4);
+	$bulan = substr($date, 5, 2);
 	$tanggal = substr($date, 8, 2);
-	$waktu   = substr($date, 11, 5);
+	$waktu = substr($date, 11, 5);
 
 	//w Urutan hari dalam seminggu
-	$hari    = date("w", strtotime($date));
+	$hari = date("w", strtotime($date));
 
-	$result  = $nama_hari[$hari] . ", " . $tanggal . " " . $nama_bulan[(int)$bulan - 1] . " " . $tahun . " " . $waktu . " WIB";
+	$result = $nama_hari[$hari] . ", " . $tanggal . " " . $nama_bulan[(int) $bulan - 1] . " " . $tahun . " " . $waktu . " WIB";
 	//keterangan (int)$bulan-1 karena array dimulai dari index ke 0 maka bulan-1
 	return $result;
 }
@@ -28,23 +76,33 @@ function tgl_indonesia($date)
 function tgl_indonesia_ibl($date)
 {
 	/* array hari dan bulan */
-	$nama_hari  = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu");
+	$nama_hari = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu");
 
 	$nama_bulan = array(
-		"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
-		"November", "Desember"
+		"Januari",
+		"Februari",
+		"Maret",
+		"April",
+		"Mei",
+		"Juni",
+		"Juli",
+		"Agustus",
+		"September",
+		"Oktober",
+		"November",
+		"Desember"
 	);
 
 	/*  Memisahkan format tanggal, bulan, tahun dengan substring */
-	$tahun   = substr($date, 0, 4);
-	$bulan   = substr($date, 5, 2);
+	$tahun = substr($date, 0, 4);
+	$bulan = substr($date, 5, 2);
 	$tanggal = substr($date, 8, 2);
-	$waktu   = substr($date, 11, 5);
+	$waktu = substr($date, 11, 5);
 
 	//w Urutan hari dalam seminggu
-	$hari    = date("w", strtotime($date));
+	$hari = date("w", strtotime($date));
 
-	$result  = $nama_hari[$hari] . ", " . $tanggal . " " . $nama_bulan[(int)$bulan - 1] . " " . $tahun . ", Pukul " . $waktu . " WIB";
+	$result = $nama_hari[$hari] . ", " . $tanggal . " " . $nama_bulan[(int) $bulan - 1] . " " . $tahun . ", Pukul " . $waktu . " WIB";
 	//keterangan (int)$bulan-1 karena array dimulai dari index ke 0 maka bulan-1
 	return $result;
 }
@@ -109,12 +167,12 @@ function helper_log($tipe = "", $str = "", $id = "", $ip = "")
 
 	// parameter
 	// $param['log_username']  = $CI->session->userdata('username');
-	$param['log_type']      = $tipe;
-	$param['log_desc']      = $str;
-	$param['log_username']	= $id;
-	$param['log_ip']		= $CI->input->ip_address();
-	$param['log_os']		= $CI->agent->platform();
-	$param['log_browser']	= $CI->agent->browser();
+	$param['log_type'] = $tipe;
+	$param['log_desc'] = $str;
+	$param['log_username'] = $id;
+	$param['log_ip'] = $CI->input->ip_address();
+	$param['log_os'] = $CI->agent->platform();
+	$param['log_browser'] = $CI->agent->browser();
 
 	// $CI->load->library('user_agent');
 
@@ -136,12 +194,34 @@ function helper_log($tipe = "", $str = "", $id = "", $ip = "")
 function Num_to_text($bilangan)
 {
 	$angka = array(
-		'0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-		'0', '0', '0', '0', '0', '0'
+		'0',
+		'0',
+		'0',
+		'0',
+		'0',
+		'0',
+		'0',
+		'0',
+		'0',
+		'0',
+		'0',
+		'0',
+		'0',
+		'0',
+		'0',
+		'0'
 	);
 	$kata = array(
-		'', 'satu', 'dua', 'tiga', 'empat', 'lima',
-		'enam', 'tujuh', 'delapan', 'sembilan'
+		'',
+		'satu',
+		'dua',
+		'tiga',
+		'empat',
+		'lima',
+		'enam',
+		'tujuh',
+		'delapan',
+		'sembilan'
 	);
 	$tingkat = array('', 'ribu', 'juta', 'milyar', 'triliun');
 
@@ -154,9 +234,9 @@ function Num_to_text($bilangan)
 	}
 
 	/* mengambil angka-angka yang ada dalam bilangan,
-dimasukkan ke dalam array */
+		 dimasukkan ke dalam array */
 	for ($i = 1; $i <= $panjang_bilangan; $i++) {
-		$angka[$i] = substr($bilangan, - ($i), 1);
+		$angka[$i] = substr($bilangan, -($i), 1);
 	}
 
 	$i = 1;
@@ -204,15 +284,16 @@ dimasukkan ke dalam array */
 		}
 
 		/* pengujian angka apakah tidak nol semua,
-lalu ditambahkan tingkat */
-		if (($angka[$i] != "0") or ($angka[$i + 1] != "0") or
+				  lalu ditambahkan tingkat */
+		if (
+			($angka[$i] != "0") or ($angka[$i + 1] != "0") or
 			($angka[$i + 2] != "0")
 		) {
 			$subkalimat = "$kata1 $kata2 $kata3 " . $tingkat[$j] . " ";
 		}
 
 		/* gabungkan variabe sub kalimat (untuk satu blok 3 angka)
-ke variabel kalimat */
+				  ke variabel kalimat */
 		$kalimat = $subkalimat . $kalimat;
 		$i = $i + 3;
 		$j = $j + 1;
