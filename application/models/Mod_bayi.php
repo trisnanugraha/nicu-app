@@ -79,6 +79,13 @@ class Mod_bayi extends CI_Model
         return $this->db->count_all_results();
     }
 
+    function get_all()
+    {
+        $this->db->where('deleted =', 0);
+        return $this->db->get($this->table)
+            ->result();
+    }
+
     function insert($data)
     {
         $insert = $this->db->insert($this->table, $data);

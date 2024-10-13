@@ -41,6 +41,15 @@ $route['data-bayi/edit/(:any)'] = 'Bayi/edit/$1';
 $route['data-bayi/update'] = 'Bayi/update';
 $route['data-bayi/delete'] = 'Bayi/delete';
 
+//Routing Menu for Perkembangan Bayi
+$route['perkembangan-bayi'] = 'Perkembanganbayi/index';
+$route['perkembangan-bayi/list'] = 'Perkembanganbayi/ajax_list';
+$route['perkembangan-bayi/insert'] = 'Perkembanganbayi/insert';
+$route['perkembangan-bayi/delete'] = 'Perkembanganbayi/delete';
+$route['perkembangan-bayi/edit/(:any)'] = 'Perkembanganbayi/edit/$1';
+$route['perkembangan-bayi/detail/(:any)'] = 'Perkembanganbayi/detail/$1';
+$route['perkembangan-bayi/update'] = 'Perkembanganbayi/update';
+
 
 
 

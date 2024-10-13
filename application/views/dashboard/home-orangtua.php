@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <?php foreach ($bayi as $b) { ?>
-                <div class="col-md-3 col-sm-6 col-12">
+                <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box <?= $b->jenis_kelamin == 'L' ? 'bg-gradient-primary' : 'bg-gradient-success' ?>">
                         <span class="info-box-icon"><i class="fas fa-baby"></i></span>
                         <div class="info-box-content">
