@@ -121,7 +121,7 @@ class Mod_perkembangan_bayi extends CI_Model
 
     function get_data($id)
     {
-        $this->db->select('a.*, b.*, c.*, d.*');
+        $this->db->select('a.*, b.id_bayi, b.nama_bayi, b.berat_badan AS berat_badan_lahir, b.panjang_badan AS panjang_badan_lahir, c.*, d.*');
         $this->db->join('tbl_bayi b', 'a.id_bayi=b.id_bayi');
         $this->db->join('tbl_tanda_vital c', 'a.id_perkembangan_bayi=c.id_perkembangan_bayi');
         $this->db->join('tbl_hasil_laboratorium d', 'a.id_perkembangan_bayi=d.id_perkembangan_bayi');

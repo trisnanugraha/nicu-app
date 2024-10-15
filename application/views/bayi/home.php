@@ -20,6 +20,8 @@
                   <th>Nama Lengkap</th>
                   <th>Jenis Kelamin</th>
                   <th>Tanggal Lahir</th>
+                  <th>Berat Badan Lahir</th>
+                  <th>Panjang Badan Lahir</th>
                   <?php if ($role != "Orang Tua") { ?>
                     <th>Aksi</th>
                   <?php } ?>

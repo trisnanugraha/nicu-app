@@ -28,7 +28,7 @@
       },
       //Set column definition initialisation properties.
       "columnDefs": [{
-        "targets": [0, 1, 2, 3, 4, 5],
+        "targets": [0, 1, 2, 3, 4, 5, 6, 7],
         "className": 'text-center'
       }, {
         "targets": [-1], //last column
@@ -138,6 +138,8 @@
         $('[name="nama_bayi"]').val(data.nama_bayi);
         $('[name="jenis_kelamin"]').val(data.jenis_kelamin);
         $('[name="tgl_lahir"]').val(data.tgl_lahir);
+        $('[name="berat_badan"]').val(data.berat_badan);
+        $('[name="panjang_badan"]').val(data.panjang_badan);
         $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
         $('.modal-title').text('Ubah Data'); // Set title to Bootstrap modal title
 

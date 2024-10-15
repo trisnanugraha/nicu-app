@@ -8,8 +8,8 @@ class Mod_bayi extends CI_Model
 {
 
     var $table = 'tbl_bayi';
-    var $column_order = array('a.id_bayi', 'a.id_orangtua', 'a.nama_bayi', 'a.jenis_kelamin', 'a.tgl_lahir');
-    var $column_search = array('a.id_bayi', 'a.id_orangtua', 'a.nama_bayi', 'a.jenis_kelamin', 'a.tgl_lahir');
+    var $column_order = array('a.id_bayi', 'a.id_orangtua', 'a.nama_bayi', 'a.jenis_kelamin', 'a.tgl_lahir', 'a.berat_badan', 'a.panjang_badan');
+    var $column_search = array('a.id_bayi', 'a.id_orangtua', 'a.nama_bayi', 'a.jenis_kelamin', 'a.tgl_lahir', 'a.berat_badan', 'a.panjang_badan');
     var $order = array('a.id_bayi' => 'desc'); // default order
 
     public function __construct()

@@ -54,6 +54,8 @@ class Bayi extends MY_Controller
             $row[] = $bayi->nama_bayi;
             $row[] = ($bayi->jenis_kelamin === 'L') ? 'Laki-laki' : 'Perempuan';
             $row[] = format_tanggal($bayi->tgl_lahir);
+            $row[] = $bayi->berat_badan . ' KG';
+            $row[] = $bayi->panjang_badan . ' CM';
             $data[] = $row;
         }
 
@@ -86,6 +88,8 @@ class Bayi extends MY_Controller
             'nama_bayi' => $this->input->post('nama_bayi'),
             'jenis_kelamin' => $this->input->post('jenis_kelamin'),
             'tgl_lahir' => $this->format_tanggal($this->input->post('tgl_lahir')),
+            'berat_badan' => $this->input->post('berat_badan'),
+            'panjang_badan' => $this->input->post('panjang_badan'),
             'dibuat_oleh' => $this->session->userdata('id_user')
         );
 
@@ -97,6 +101,7 @@ class Bayi extends MY_Controller
     public function edit($id)
     {
         $data = $this->Mod_bayi->get_bayi($id);
+        $data->tgl_lahir = $this->format_tanggal_edit($data->tgl_lahir);
 
         echo json_encode($data);
     }
@@ -112,7 +117,9 @@ class Bayi extends MY_Controller
             'id_orangtua' => $this->input->post('id_orangtua'),
             'nama_bayi' => $this->input->post('nama_bayi'),
             'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-            'tgl_lahir' => $this->format_tanggal($this->input->post('tgl_lahir'))
+            'tgl_lahir' => $this->format_tanggal($this->input->post('tgl_lahir')),
+            'berat_badan' => $this->input->post('berat_badan'),
+            'panjang_badan' => $this->input->post('panjang_badan'),
         );
 
         $this->Mod_bayi->update($id, $save);
@@ -159,6 +166,17 @@ class Bayi extends MY_Controller
             $data['status'] = FALSE;
         }
 
+        if ($this->input->post('berat_badan') == '') {
+            $data['inputerror'][] = 'berat_badan';
+            $data['error_string'][] = 'Berat badan Tidak Boleh Kosong';
+            $data['status'] = FALSE;
+        }
+
+        if ($this->input->post('panjang_badan') == '') {
+            $data['inputerror'][] = 'panjang_badan';
+            $data['error_string'][] = 'Panjang Badan Tidak Boleh Kosong';
+            $data['status'] = FALSE;
+        }
 
         if ($data['status'] === FALSE) {
             echo json_encode($data);
@@ -186,10 +204,18 @@ class Bayi extends MY_Controller
         return $lastNumber + 1; // Menambah 1 untuk nomor urut berikutnya
     }
 
-    private function format_tanggal($tgl){
+    private function format_tanggal($tgl)
+    {
         $tgl_lahir = $tgl;
         $date = DateTime::createFromFormat('m/d/Y', $tgl_lahir);
         return $date->format('Y-m-d');
+    }
+
+    private function format_tanggal_edit($tgl)
+    {
+        $tgl_lahir = $tgl;
+        $date = DateTime::createFromFormat('Y-m-d', $tgl_lahir);
+        return $date->format('m/d/Y');
     }
 
 }

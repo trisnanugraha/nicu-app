@@ -16,8 +16,8 @@
                     <div class="form-group row ">
                         <label for="id_orangtua" class="col-sm-4 col-form-label">Orang Tua</label>
                         <div class="col-sm-8 kosong">
-                            <select class="form-control" name="id_orangtua" id="id_orangtua"
-                                style="width: 100%;" data-live-search="true">
+                            <select class="form-control" name="id_orangtua" id="id_orangtua" style="width: 100%;"
+                                data-live-search="true">
                                 <option value="" selected disabled>Pilih Orang Tua</option>
                                 <?php
                                 foreach ($orangtua as $ot) { ?>
@@ -50,6 +50,20 @@
                         <div class="col-sm-8 kosong">
                             <input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir"
                                 data-toggle="datetimepicker" data-target="#tgl_lahir" />
+                        </div>
+                    </div>
+                    <div class="form-group row ">
+                        <label for="berat_badan" class="col-sm-4 col-form-label">Berat badan</label>
+                        <div class="col-sm-8 kosong">
+                            <input type="text" class="form-control" name="berat_badan" id="berat_badan"
+                                placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
+                        </div>
+                    </div>
+                    <div class="form-group row ">
+                        <label for="panjang_badan" class="col-sm-4 col-form-label">Panjang Badan</label>
+                        <div class="col-sm-8 kosong">
+                            <input type="text" class="form-control" name="panjang_badan" id="panjang_badan"
+                                placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
                         </div>
                     </div>
                 </div>
