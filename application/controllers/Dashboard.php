@@ -39,20 +39,16 @@ class Dashboard extends MY_Controller
     function index_orangtua()
     {
         $data['judul'] = 'Dashboard';
-        $id_orangtua = $this->Mod_user->get_user_orangtua($this->session->userdata('id_user'))->id_orangtua;
-        $data['bayi'] = $this->Mod_bayi->get_bayi_orangtua($id_orangtua);
+        $data['orangtua'] = $this->Mod_user->get_user_orangtua($this->session->userdata('id_user'));
+        $data['bayi'] = $this->Mod_bayi->get_bayi_orangtua($data['orangtua']->id_orangtua);
 
         $logged_in = $this->session->userdata('logged_in');
         $data['role'] = $this->session->userdata('hak_akses');
         if ($logged_in != TRUE || empty($logged_in)) {
             redirect('login');
         } else {
-            // $this->template->load('layoutbackend', 'dashboard/view_dashboard', $data);
-            $js = $this->load->view('dashboard/dashboard-orangtua-js', null, true);
-            $this->template->views('dashboard/home-orangtua', $data, $js);
+            $this->template->views('dashboard/home-orangtua', $data);
         }
-
-        // echo print_r( json_encode( $data ) );
     }
 
     public function ajax_list()

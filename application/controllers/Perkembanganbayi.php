@@ -58,8 +58,8 @@ class Perkembanganbayi extends MY_Controller
             $row = array();
             $row[] = $perkembanganBayi->id_bayi;
             $row[] = $perkembanganBayi->nama_bayi;
-            $row[] = $perkembanganBayi->berat_badan;
-            $row[] = $perkembanganBayi->panjang_badan;
+            $row[] = $perkembanganBayi->berat_badan . ' KG';
+            $row[] = $perkembanganBayi->panjang_badan . ' CM';
             $row[] = $perkembanganBayi->diagnosa_medis;
             $row[] = tgl_indonesia($perkembanganBayi->tgl_dibuat);
             $row[] = $this->Mod_user->get_user($perkembanganBayi->dibuat_oleh)->full_name;
@@ -127,6 +127,7 @@ class Perkembanganbayi extends MY_Controller
     public function detail($id)
     {
         $data = $this->Mod_perkembangan_bayi->get_data($id);
+        $data->tgl_dibuat = tgl_indonesia($data->tgl_dibuat);
         echo json_encode($data);
     }
 
@@ -289,26 +290,6 @@ class Perkembanganbayi extends MY_Controller
             echo json_encode($data);
             exit();
         }
-    }
-
-    private function generateUniqueId()
-    {
-        // Misalnya, menghasilkan ID unik dengan menggunakan timestamp dan random
-        return strtoupper(bin2hex(random_bytes(3))); // Contoh: 'A1B2C3'
-    }
-
-    private function getNextNumber()
-    {
-        // Ganti dengan logika untuk mendapatkan nomor urut terakhir dari database
-        // Misalnya, ambil dari tabel dan ambil nomor urut terakhir
-        $this->db->select('MAX(SUBSTRING_INDEX(id_bayi, "-", -1)) as last_number');
-        $query = $this->db->get('tbl_bayi'); // Ganti dengan nama tabel yang sesuai
-        $result = $query->row();
-
-        // Mengambil nomor urut terakhir
-        $lastNumber = $result ? intval($result->last_number) : 0;
-
-        return $lastNumber + 1; // Menambah 1 untuk nomor urut berikutnya
     }
 
     private function format_tanggal($tgl)

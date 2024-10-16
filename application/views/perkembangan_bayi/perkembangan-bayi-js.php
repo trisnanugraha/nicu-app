@@ -162,30 +162,30 @@
       success: function (data) {
         $('[name="id_bayi"]').text(data.id_bayi);
         $('[name="nama_bayi"]').text(data.nama_bayi);
-        $('[name="berat_badan_lahir"]').text(data.berat_badan_lahir + ' Kg');
-        $('[name="panjang_badan_lahir"]').text(data.panjang_badan_lahir + ' Cm');
-        $('[name="berat_badan"]').text(data.berat_badan + ' Kg');
-        $('[name="panjang_badan"]').text(data.panjang_badan + ' Cm');
+        $('[name="berat_badan_lahir"]').text(data.berat_badan_lahir + ' KG');
+        $('[name="panjang_badan_lahir"]').text(data.panjang_badan_lahir + ' CM');
+        $('[name="berat_badan"]').text(data.berat_badan + ' KG');
+        $('[name="panjang_badan"]').text(data.panjang_badan + ' CM');
         $('[name="diagnosa_medis"]').text(data.diagnosa_medis);
-        $('[name="suhu"]').text(data.suhu);
+        $('[name="suhu"]').text(data.suhu  + ' °C');
         if (data.suhu >= 36.5 && data.suhu <= 37.5) {
           $('#status_suhu').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
         } else {
           $('#status_suhu').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
         }
-        $('[name="pernapasan"]').text(data.pernapasan);
+        $('[name="pernapasan"]').text(data.pernapasan + 'x/menit');
         if (data.pernapasan >= 40 && data.pernapasan <= 60) {
           $('#status_pernapasan').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
         } else {
           $('#status_pernapasan').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
         }
-        $('[name="heart_rate"]').text(data.heart_rate);
+        $('[name="heart_rate"]').text(data.heart_rate + 'x/menit');
         if (data.heart_rate >= 130 && data.heart_rate <= 140) {
           $('#status_heart_rate').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
         } else {
           $('#status_heart_rate').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
         }
-        $('[name="saturasi_oksigen"]').text(data.saturasi_oksigen);
+        $('[name="saturasi_oksigen"]').text(data.saturasi_oksigen + '%');
         if (data.saturasi_oksigen >= 92) {
           $('#status_saturasi_oksigen').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
         } else {
