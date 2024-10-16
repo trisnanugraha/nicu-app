@@ -160,22 +160,45 @@
       type: "GET",
       dataType: "JSON",
       success: function (data) {
-        $('[name="id_bayi"]').val(data.id_bayi);
-        $('[name="berat_badan"]').val(data.berat_badan);
-        $('[name="panjang_badan"]').val(data.panjang_badan);
-        $('[name="diagnosa_medis"]').val(data.diagnosa_medis);
-        $('[name="suhu"]').val(data.suhu);
-        $('[name="pernapasan"]').val(data.pernapasan);
-        $('[name="heart_rate"]').val(data.heart_rate);
-        $('[name="saturasi_oksigen"]').val(data.saturasi_oksigen);
-        $('[name="h2tl"]').val(data.h2tl);
-        $('[name="crp"]').val(data.crp);
-        $('[name="natrium"]').val(data.natrium);
-        $('[name="kalium"]').val(data.kalium);
-        $('[name="kalsium"]').val(data.kalsium);
-        $('[name="agd"]').val(data.agd);
-        $('[name="bilirubin_total"]').val(data.bilirubin_total);
-        $('[name="albumin"]').val(data.albumin);
+        $('[name="id_bayi"]').text(data.id_bayi);
+        $('[name="nama_bayi"]').text(data.nama_bayi);
+        $('[name="berat_badan_lahir"]').text(data.berat_badan_lahir + ' Kg');
+        $('[name="panjang_badan_lahir"]').text(data.panjang_badan_lahir + ' Cm');
+        $('[name="berat_badan"]').text(data.berat_badan + ' Kg');
+        $('[name="panjang_badan"]').text(data.panjang_badan + ' Cm');
+        $('[name="diagnosa_medis"]').text(data.diagnosa_medis);
+        $('[name="suhu"]').text(data.suhu);
+        if (data.suhu >= 36.5 && data.suhu <= 37.5) {
+          $('#status_suhu').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
+        } else {
+          $('#status_suhu').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
+        }
+        $('[name="pernapasan"]').text(data.pernapasan);
+        if (data.pernapasan >= 40 && data.pernapasan <= 60) {
+          $('#status_pernapasan').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
+        } else {
+          $('#status_pernapasan').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
+        }
+        $('[name="heart_rate"]').text(data.heart_rate);
+        if (data.heart_rate >= 130 && data.heart_rate <= 140) {
+          $('#status_heart_rate').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
+        } else {
+          $('#status_heart_rate').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
+        }
+        $('[name="saturasi_oksigen"]').text(data.saturasi_oksigen);
+        if (data.saturasi_oksigen >= 92) {
+          $('#status_saturasi_oksigen').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
+        } else {
+          $('#status_saturasi_oksigen').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
+        }
+        $('[name="h2tl"]').text(data.h2tl);
+        $('[name="crp"]').text(data.crp);
+        $('[name="natrium"]').text(data.natrium);
+        $('[name="kalium"]').text(data.kalium);
+        $('[name="kalsium"]').text(data.kalsium);
+        $('[name="agd"]').text(data.agd);
+        $('[name="bilirubin_total"]').text(data.bilirubin_total);
+        $('[name="albumin"]').text(data.albumin);
         $('#modal_form_detail').modal('show'); // show bootstrap modal when complete loaded
         $('.modal-title').text('Detail Data'); // Set title to Bootstrap modal title
 
