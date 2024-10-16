@@ -2,10 +2,11 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L]
-<Files .htaccess>
+
+<FilesMatch "\.(json|lock|txt|md|gitignore|editorconfig|rst)$">
 order allow,deny
 deny from all
-</Files>
+</FilesMatch>
 
 <IfModule mod_env.c>
     SetEnv CI_ENV development
