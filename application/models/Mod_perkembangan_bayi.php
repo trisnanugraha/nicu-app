@@ -8,8 +8,8 @@ class Mod_perkembangan_bayi extends CI_Model
 {
 
     var $table = 'tbl_bayi';
-    var $column_order = array('a.id_bayi', 'b.nama_bayi', 'a.berat_badan', 'a.panjang_badan', 'a.diagnosa_medis', 'a.tgl_dibuat');
-    var $column_search = array('a.id_bayi', 'b.nama_bayi', 'a.berat_badan', 'a.panjang_badan', 'a.diagnosa_medis', 'a.tgl_dibuat');
+    var $column_order = array('a.id_bayi', 'b.nama_bayi', 'a.berat_badan', 'a.panjang_badan', 'a.diagnosa_medis', 'a.tgl_dibuat', 'e.full_name');
+    var $column_search = array('a.id_bayi', 'b.nama_bayi', 'a.berat_badan', 'a.panjang_badan', 'a.diagnosa_medis', 'a.tgl_dibuat', 'e.full_name');
     var $order = array('a.id_bayi' => 'desc'); // default order
 
     public function __construct()
@@ -21,10 +21,11 @@ class Mod_perkembangan_bayi extends CI_Model
     private function _get_datatables_query($role, $id)
     {
         if ($role != "Orang Tua") {
-            $this->db->select('a.*, b.*, c.*, d.*');
+            $this->db->select('a.*, b.*, c.*, d.*, e.full_name');
             $this->db->join('tbl_bayi b', 'a.id_bayi=b.id_bayi');
             $this->db->join('tbl_tanda_vital c', 'a.id_perkembangan_bayi=c.id_perkembangan_bayi');
             $this->db->join('tbl_hasil_laboratorium d', 'a.id_perkembangan_bayi=d.id_perkembangan_bayi');
+            $this->db->join('tbl_user e', 'a.dibuat_oleh=e.id_user');
             $this->db->from('tbl_data_perkembangan_bayi a');
             $this->db->where('a.deleted !=', 1); // hide from list when deleted
         } else {

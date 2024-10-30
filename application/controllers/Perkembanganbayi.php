@@ -110,7 +110,8 @@ class Perkembanganbayi extends MY_Controller
             'kalsium' => $this->input->post('kalsium'),
             'agd' => $this->input->post('agd'),
             'bilirubin_total' => $this->input->post('bilirubin_total'),
-            'albumin' => $this->input->post('albumin')
+            'albumin' => $this->input->post('albumin'),
+            'gds' => $this->input->post('gds')
         );
 
         $this->Mod_perkembangan_bayi->insert_hasil_laboratorium($save_hasil_laboratorium);
@@ -128,6 +129,7 @@ class Perkembanganbayi extends MY_Controller
     {
         $data = $this->Mod_perkembangan_bayi->get_data($id);
         $data->tgl_dibuat = tgl_indonesia($data->tgl_dibuat);
+        $data->tgl_diubah = tgl_indonesia($data->tgl_diubah);
         echo json_encode($data);
     }
 
@@ -165,7 +167,8 @@ class Perkembanganbayi extends MY_Controller
             'kalsium' => $this->input->post('kalsium'),
             'agd' => $this->input->post('agd'),
             'bilirubin_total' => $this->input->post('bilirubin_total'),
-            'albumin' => $this->input->post('albumin')
+            'albumin' => $this->input->post('albumin'),
+            'gds' => $this->input->post('gds')
         );
 
         $this->Mod_perkembangan_bayi->update_hasil_laboratorium($id, $save_hasil_laboratorium);
@@ -282,6 +285,12 @@ class Perkembanganbayi extends MY_Controller
         if ($this->input->post('albumin') == '') {
             $data['inputerror'][] = 'albumin';
             $data['error_string'][] = 'Albumin Tidak Boleh Kosong';
+            $data['status'] = FALSE;
+        }
+
+        if ($this->input->post('gds') == '') {
+            $data['inputerror'][] = 'gds';
+            $data['error_string'][] = 'GDS Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 

@@ -46,7 +46,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12 kosong">
-                                    <label for="diagnosa_medis">Diagnosa Medis</label>
+                                    <label for="diagnosa_medis">Kondisi Anak</label>
                                     <textarea class="form-control" name="diagnosa_medis" id="diagnosa_medis" rows="5"
                                         style="resize: none;"></textarea>
                                 </div>
@@ -55,21 +55,21 @@
                         <div class="col-md-4">
                             <div class="form-group row">
                                 <div class="col-md-12 kosong">
-                                    <label for="suhu">Suhu Badan (36.5&#8451;-37.5&#8451;)</label>
+                                    <label for="suhu">Suhu Badan (36.5&#8451; - 37.5&#8451;)</label>
                                     <input type="text" class="form-control" name="suhu" id="suhu"
                                         placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12 kosong">
-                                    <label for="pernapasan">Pernapasan (40-60x/menit)</label>
+                                    <label for="pernapasan">Pernapasan (40 - 60x/menit)</label>
                                     <input type="text" class="form-control" name="pernapasan" id="pernapasan"
                                         placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12 kosong">
-                                    <label for="heart_rate">Heart Rate (130-140x/menit)</label>
+                                    <label for="heart_rate">Heart Rate (130 - 160x/menit)</label>
                                     <input type="text" class="form-control" name="heart_rate" id="heart_rate"
                                         placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
                                 </div>
@@ -86,57 +86,64 @@
                             <div class="form-group row">
                                 <div class="col-md-12 kosong">
                                     <label for="h2tl">H2TL</label>
-                                    <input type="text" class="form-control" name="h2tl"
-                                        id="h2tl" placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
+                                    <input type="text" class="form-control" name="h2tl" id="h2tl"
+                                        placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12 kosong">
-                                    <label for="crp">CRP</label>
-                                    <input type="text" class="form-control" name="crp"
-                                        id="crp" placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
+                                    <label for="crp">CRP (<5 mg/L)</label>
+                                    <input type="text" class="form-control" name="crp" id="crp"
+                                        placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12 kosong">
-                                    <label for="natrium">Natrium</label>
-                                    <input type="text" class="form-control" name="natrium"
-                                        id="natrium" placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
+                                    <label for="natrium">Natrium (136 - 145 mmol/L)</label>
+                                    <input type="text" class="form-control" name="natrium" id="natrium"
+                                        placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12 kosong">
-                                    <label for="kalium">Kalium</label>
-                                    <input type="text" class="form-control" name="kalium"
-                                        id="kalium" placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
+                                    <label for="kalium">Kalium (3.5 - 5.1 mmol/L)</label>
+                                    <input type="text" class="form-control" name="kalium" id="kalium"
+                                        placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12 kosong">
-                                    <label for="kalsium">Kalsium</label>
-                                    <input type="text" class="form-control" name="kalsium"
-                                        id="kalsium" placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
+                                    <label for="kalsium">Kalsium (7.6 - 10.4 mg/dL)</label>
+                                    <input type="text" class="form-control" name="kalsium" id="kalsium"
+                                        placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12 kosong">
                                     <label for="agd">AGD</label>
-                                    <input type="text" class="form-control" name="agd"
-                                        id="agd" placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
+                                    <input type="text" class="form-control" name="agd" id="agd"
+                                        placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12 kosong">
-                                    <label for="bilirubin_total">Bilirubin Total</label>
-                                    <input type="text" class="form-control" name="bilirubin_total"
-                                        id="bilirubin_total" placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
+                                    <label for="bilirubin_total">Bilirubin Total (0.14 - 14.44 mg/dL)</label>
+                                    <input type="text" class="form-control" name="bilirubin_total" id="bilirubin_total"
+                                        placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12 kosong">
-                                    <label for="albumin">Albumin</label>
-                                    <input type="text" class="form-control" name="albumin"
-                                        id="albumin" placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
+                                    <label for="albumin">Albumin (3.3 - 4.4 g/dL)</label>
+                                    <input type="text" class="form-control" name="albumin" id="albumin"
+                                        placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12 kosong">
+                                    <label for="gds">Gula Darah Sewaktu (GDS) (40 - 60 mg/dL)</label>
+                                    <input type="text" class="form-control" name="gds" id="gds"
+                                        placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
                                 </div>
                             </div>
                         </div>

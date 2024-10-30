@@ -56,8 +56,8 @@
             foreach ($bayi as $b) { ?>
                 <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box shadow-none">
-                        <span class="info-box-icon <?= $b->jenis_kelamin == 'L' ? 'bg-primary' : 'bg-success' ?>"><i
-                                class="fas fa-baby"></i></span>
+                        <span class="info-box-icon" style="<?= $b->jenis_kelamin == 'L' ? 'background-color: #007bff;' : 'background-color: #ffc0cb;' ?>"><i
+                                class="fas fa-baby" style="color: #fff;"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-number">Anak ke-<?= $i; ?></span>
                             <span class="info-box-text">
