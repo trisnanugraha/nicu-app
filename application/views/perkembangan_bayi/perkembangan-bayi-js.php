@@ -197,7 +197,7 @@
         } else {
           $('#status_saturasi_oksigen').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
         }
-        $('[name="hb"]').text(data.hb);
+        $('[name="hb"]').text(data.hb + 'g/dl');
         if (data.hb == 0 || data.hb == NULL) {
           $('#status_hb').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
         } elseif (data.hb >= 15.00 && data.hb <= 24.00) {
@@ -205,7 +205,7 @@
         } else {
           $('#status_hb').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
         }
-        $('[name="ht"]').text(data.ht);
+        $('[name="ht"]').text(data.ht + '%');
         if (data.ht == 0 || data.ht == NULL) {
           $('#status_ht').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
         } elseif (data.ht >= 43.00 && data.ht <= 70.00) {
@@ -213,7 +213,7 @@
         } else {
           $('#status_ht').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
         }
-        $('[name="leukosit"]').text(data.leukosit);
+        $('[name="leukosit"]').text(data.leukosit + '/uL');
         if (data.leukosit == 0 || data.leukosit == NULL) {
           $('#status_leukosit').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
         } elseif (data.leukosit >= 9100 && data.leukosit <= 34000) {
@@ -221,7 +221,7 @@
         } else {
           $('#status_leukosit').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
         }
-        $('[name="trombosit"]').text(data.trombosit);
+        $('[name="trombosit"]').text(data.trombosit + '/uL');
         if (data.trombosit == 0 || data.trombosit == NULL) {
           $('#status_trombosit').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
         } elseif (data.trombosit >= 86000 && data.trombosit <= 478000) {
@@ -246,7 +246,7 @@
           $('#status_natrium').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
         }
         $('[name="kalium"]').text(data.kalium + 'mmol/L');
-        if (data.natrium == 0 || data.natrium == NULL) {
+        if (data.kalium == 0 || data.kalium == NULL) {
           $('#status_natrium').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
         }elseif (data.kalium >= 3.5 && data.kalium <= 5.1) {
           $('#status_kalium').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
