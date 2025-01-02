@@ -102,34 +102,34 @@
         } else {
           $('#status_saturasi_oksigen').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
         }
-        $('[name="hb"]').text(data.hb);
+        $('[name="hb"]').text(data.hb + 'g/dl');
         if (data.hb == 0 || data.hb == NULL) {
           $('#status_hb').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
-        } elseif (data.hb >= 15.00 && data.hb <= 24.00) {
+        } else if (data.hb >= 15.00 && data.hb <= 24.00) {
           $('#status_hb').html('<div class="badge bg-success text-white text-wrap">Normal</div>'); 
         } else {
           $('#status_hb').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
         }
-        $('[name="ht"]').text(data.ht);
+        $('[name="ht"]').text(data.ht + '%');
         if (data.ht == 0 || data.ht == NULL) {
           $('#status_ht').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
-        } elseif (data.ht >= 43.00 && data.ht <= 70.00) {
+        } else if (data.ht >= 43.00 && data.ht <= 70.00) {
           $('#status_ht').html('<div class="badge bg-success text-white text-wrap">Normal</div>'); 
         } else {
           $('#status_ht').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
         }
-        $('[name="leukosit"]').text(data.leukosit);
+        $('[name="leukosit"]').text(data.leukosit + '/uL');
         if (data.leukosit == 0 || data.leukosit == NULL) {
           $('#status_leukosit').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
-        } elseif (data.leukosit >= 9100 && data.leukosit <= 34000) {
+        } else if (data.leukosit >= 9100 && data.leukosit <= 34000) {
           $('#status_leukosit').html('<div class="badge bg-success text-white text-wrap">Normal</div>'); 
         } else {
           $('#status_leukosit').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
         }
-        $('[name="trombosit"]').text(data.trombosit);
+        $('[name="trombosit"]').text(data.trombosit + '/uL');
         if (data.trombosit == 0 || data.trombosit == NULL) {
           $('#status_trombosit').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
-        } elseif (data.trombosit >= 86000 && data.trombosit <= 478000) {
+        } else if (data.trombosit >= 86000 && data.trombosit <= 478000) {
           $('#status_trombosit').html('<div class="badge bg-success text-white text-wrap">Normal</div>'); 
         } else {
           $('#status_trombosit').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
@@ -137,7 +137,7 @@
         $('[name="crp"]').text(data.crp + 'mg/L');
         if (data.crp == 0 || data.crp == NULL) {
           $('#status_crp').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
-        } elseif (data.crp <= 5) {
+        } else if (data.crp <= 5) {
           $('#status_crp').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
         } else {
           $('#status_crp').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
@@ -145,15 +145,15 @@
         $('[name="natrium"]').text(data.natrium + 'mmol/L');
         if (data.natrium == 0 || data.natrium == NULL) {
           $('#status_natrium').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
-        }elseif (data.natrium >= 136 && data.natrium <= 145) {
+        }else if (data.natrium >= 136 && data.natrium <= 145) {
           $('#status_natrium').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
         } else {
           $('#status_natrium').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
         }
         $('[name="kalium"]').text(data.kalium + 'mmol/L');
-        if (data.natrium == 0 || data.natrium == NULL) {
+        if (data.kalium == 0 || data.kalium == NULL) {
           $('#status_natrium').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
-        }elseif (data.kalium >= 3.5 && data.kalium <= 5.1) {
+        }else if (data.kalium >= 3.5 && data.kalium <= 5.1) {
           $('#status_kalium').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
         } else {
           $('#status_kalium').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
@@ -161,7 +161,7 @@
         $('[name="kalsium"]').text(data.kalsium + 'mg/dL');
         if (data.kalsium == 0 || data.kalsium == NULL) {
           $('#status_kalsium').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
-        }elseif (data.kalsium >= 7.6 && data.kalsium <= 10.4) {
+        }else if (data.kalsium >= 7.6 && data.kalsium <= 10.4) {
           $('#status_kalsium').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
         } else {
           $('#status_kalsium').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
@@ -169,7 +169,7 @@
         $('[name="bilirubin_total"]').text(data.bilirubin_total + 'mg/dL');
         if (data.bilirubin_total == 0 || data.bilirubin_total == NULL) {
           $('#status_bilirubin_total').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
-        }elseif (data.bilirubin_total >= 0.14 && data.bilirubin_total <= 14.44) {
+        }else if (data.bilirubin_total >= 0.14 && data.bilirubin_total <= 14.44) {
           $('#status_bilirubin_total').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
         } else {
           $('#status_bilirubin_total').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
@@ -177,7 +177,7 @@
         $('[name="albumin"]').text(data.albumin + 'g/dL');
         if (data.albumin == 0 || data.albumin == NULL) {
           $('#status_albumin').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
-        }elseif (data.albumin >= 3.3 && data.albumin <= 4.4) {
+        }else if (data.albumin >= 3.3 && data.albumin <= 4.4) {
           $('#status_albumin').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
         } else {
           $('#status_albumin').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
@@ -185,7 +185,7 @@
         $('[name="gds"]').text(data.gds + 'mg/dL');
         if (data.gds == 0 || data.gds == NULL) {
           $('#status_gds').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
-        }elseif (data.gds >= 40 && data.gds <= 60) {
+        }else if (data.gds >= 40 && data.gds <= 60) {
           $('#status_gds').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
         } else {
           $('#status_gds').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
