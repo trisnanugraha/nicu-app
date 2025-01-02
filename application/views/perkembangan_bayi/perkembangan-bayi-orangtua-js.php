@@ -185,7 +185,7 @@
         $('[name="gds"]').text(data.gds + 'mg/dL');
         if (data.gds == 0 || data.gds === null || data.gds === '') {
           $('#status_gds').html('<div class="badge bg-primary text-white text-wrap">Belum Test</div>');
-        }else if (data.gds >= 40 && data.gds <= 60) {
+        }else if (data.gds >= 50) {
           $('#status_gds').html('<div class="badge bg-success text-white text-wrap">Normal</div>');
         } else {
           $('#status_gds').html('<div class="badge bg-danger text-white text-wrap">Tidak Normal</div>');
