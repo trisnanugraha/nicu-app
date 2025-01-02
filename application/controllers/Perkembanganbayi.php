@@ -242,59 +242,59 @@ class Perkembanganbayi extends MY_Controller
             $data['status'] = FALSE;
         }
 
-        if ($this->input->post('h2tl') == '') {
-            $data['inputerror'][] = 'h2tl';
-            $data['error_string'][] = 'H2TL Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
+        // if ($this->input->post('h2tl') == '') {
+        //     $data['inputerror'][] = 'h2tl';
+        //     $data['error_string'][] = 'H2TL Tidak Boleh Kosong';
+        //     $data['status'] = FALSE;
+        // }
 
-        if ($this->input->post('crp') == '') {
-            $data['inputerror'][] = 'crp';
-            $data['error_string'][] = 'CRP Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
+        // if ($this->input->post('crp') == '') {
+        //     $data['inputerror'][] = 'crp';
+        //     $data['error_string'][] = 'CRP Tidak Boleh Kosong';
+        //     $data['status'] = FALSE;
+        // }
 
-        if ($this->input->post('natrium') == '') {
-            $data['inputerror'][] = 'natrium';
-            $data['error_string'][] = 'Natrium Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
+        // if ($this->input->post('natrium') == '') {
+        //     $data['inputerror'][] = 'natrium';
+        //     $data['error_string'][] = 'Natrium Tidak Boleh Kosong';
+        //     $data['status'] = FALSE;
+        // }
 
-        if ($this->input->post('kalium') == '') {
-            $data['inputerror'][] = 'kalium';
-            $data['error_string'][] = 'Kalium Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
+        // if ($this->input->post('kalium') == '') {
+        //     $data['inputerror'][] = 'kalium';
+        //     $data['error_string'][] = 'Kalium Tidak Boleh Kosong';
+        //     $data['status'] = FALSE;
+        // }
 
-        if ($this->input->post('kalsium') == '') {
-            $data['inputerror'][] = 'kalsium';
-            $data['error_string'][] = 'Kalsium Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
+        // if ($this->input->post('kalsium') == '') {
+        //     $data['inputerror'][] = 'kalsium';
+        //     $data['error_string'][] = 'Kalsium Tidak Boleh Kosong';
+        //     $data['status'] = FALSE;
+        // }
 
-        if ($this->input->post('agd') == '') {
-            $data['inputerror'][] = 'agd';
-            $data['error_string'][] = 'AGD Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
+        // if ($this->input->post('agd') == '') {
+        //     $data['inputerror'][] = 'agd';
+        //     $data['error_string'][] = 'AGD Tidak Boleh Kosong';
+        //     $data['status'] = FALSE;
+        // }
 
-        if ($this->input->post('bilirubin_total') == '') {
-            $data['inputerror'][] = 'bilirubin_total';
-            $data['error_string'][] = 'Bilirubin Total Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
+        // if ($this->input->post('bilirubin_total') == '') {
+        //     $data['inputerror'][] = 'bilirubin_total';
+        //     $data['error_string'][] = 'Bilirubin Total Tidak Boleh Kosong';
+        //     $data['status'] = FALSE;
+        // }
 
-        if ($this->input->post('albumin') == '') {
-            $data['inputerror'][] = 'albumin';
-            $data['error_string'][] = 'Albumin Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
+        // if ($this->input->post('albumin') == '') {
+        //     $data['inputerror'][] = 'albumin';
+        //     $data['error_string'][] = 'Albumin Tidak Boleh Kosong';
+        //     $data['status'] = FALSE;
+        // }
 
-        if ($this->input->post('gds') == '') {
-            $data['inputerror'][] = 'gds';
-            $data['error_string'][] = 'GDS Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
+        // if ($this->input->post('gds') == '') {
+        //     $data['inputerror'][] = 'gds';
+        //     $data['error_string'][] = 'GDS Tidak Boleh Kosong';
+        //     $data['status'] = FALSE;
+        // }
 
 
         if ($data['status'] === FALSE) {
