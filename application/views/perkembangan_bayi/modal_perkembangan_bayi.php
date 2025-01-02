@@ -155,7 +155,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12 kosong">
-                                    <label for="gds">Gula Darah Sewaktu (GDS) (40 - 60 mg/dL)</label>
+                                    <label for="gds">Gula Darah Sewaktu (GDS) (>50 mg/dL)</label>
                                     <input type="text" class="form-control" name="gds" id="gds"
                                         placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
                                 </div>
