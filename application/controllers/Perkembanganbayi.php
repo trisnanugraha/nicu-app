@@ -103,12 +103,14 @@ class Perkembanganbayi extends MY_Controller
 
         $save_hasil_laboratorium = array(
             'id_perkembangan_bayi' => $id,
-            'h2tl' => $this->input->post('h2tl'),
+            'hb' => $this->input->post('hb'),
+            'ht' => $this->input->post('ht'),
+            'leukosit' => $this->input->post('leukosit'),
+            'trombosit' => $this->input->post('trombosit'),
             'crp' => $this->input->post('crp'),
             'natrium' => $this->input->post('natrium'),
             'kalium' => $this->input->post('kalium'),
             'kalsium' => $this->input->post('kalsium'),
-            'agd' => $this->input->post('agd'),
             'bilirubin_total' => $this->input->post('bilirubin_total'),
             'albumin' => $this->input->post('albumin'),
             'gds' => $this->input->post('gds')

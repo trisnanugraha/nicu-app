@@ -156,54 +156,66 @@
                                     <tbody>
                                         <tr>
                                             <td>1.</td>
-                                            <td>H2TL</td>
-                                            <td name="h2tl" id="h2tl"></td>
-                                            <td id="status_h2tl"></td>
+                                            <td>Hb</td>
+                                            <td name="hb" id="hb"></td>
+                                            <td id="status_hb"></td>
                                         </tr>
                                         <tr>
                                             <td>2.</td>
+                                            <td>Ht</td>
+                                            <td name="ht" id="ht"></td>
+                                            <td id="status_ht"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3.</td>
+                                            <td>Leukosit</td>
+                                            <td name="leukosit" id="leukosit"></td>
+                                            <td id="status_leukosit"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>4.</td>
+                                            <td>Trombosit</td>
+                                            <td name="trombosit" id="trombosit"></td>
+                                            <td id="status_trombosit"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>5.</td>
                                             <td>CRP</td>
                                             <td name="crp" id="crp"></td>
                                             <td id="status_crp"></td>
                                         </tr>
                                         <tr>
-                                            <td>3.</td>
+                                            <td>6.</td>
                                             <td>Natrium</td>
                                             <td name="natrium" id="natrium"></td>
                                             <td id="status_natrium"></td>
                                         </tr>
                                         <tr>
-                                            <td>4.</td>
+                                            <td>7.</td>
                                             <td>Kalium</td>
                                             <td name="kalium" id="kalium"></td>
                                             <td id="status_kalium"></td>
                                         </tr>
                                         <tr>
-                                            <td>5.</td>
+                                            <td>8.</td>
                                             <td>Kalsium</td>
                                             <td name="kalsium" id="kalsium"></td>
                                             <td id="status_kalsium"></td>
                                         </tr>
                                         <tr>
-                                            <td>6.</td>
-                                            <td>AGD</td>
-                                            <td name="agd" id="agd"></td>
-                                            <td id="status_agd"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>7.</td>
+                                            <td>9.</td>
                                             <td>Bilirubin Total</td>
                                             <td name="bilirubin_total" id="bilirubin_total"></td>
                                             <td id="status_bilirubin_total"></td>
                                         </tr>
                                         <tr>
-                                            <td>8.</td>
+                                            <td>10.</td>
                                             <td>Albumin</td>
                                             <td name="albumin" id="albumin"></td>
                                             <td id="status_albumin"></td>
                                         </tr>
                                         <tr>
-                                            <td>9.</td>
+                                            <td>11.</td>
                                             <td>Gula Darah Sewaktu (GDS)</td>
                                             <td name="gds" id="gds"></td>
                                             <td id="status_gds"></td>

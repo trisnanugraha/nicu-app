@@ -85,9 +85,30 @@
                         <div class="col-md-4">
                             <div class="form-group row">
                                 <div class="col-md-12 kosong">
-                                    <label for="h2tl">H2TL</label>
-                                    <input type="text" class="form-control" name="h2tl" id="h2tl"
+                                    <label for="hb">Hb (15.0 - 24.0g/dl)</label>
+                                    <input type="text" class="form-control" name="hb" id="hb"
                                         placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12 kosong">
+                                    <label for="ht">Ht (43.0 - 70.0%)</label>
+                                    <input type="text" class="form-control" name="ht" id="ht"
+                                        placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12 kosong">
+                                    <label for="ht">Leukosit (9100 - 34000/uL)</label>
+                                    <input type="text" class="form-control" name="leukosit" id="leukosit"
+                                        placeholder="Contoh : 9250">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12 kosong">
+                                    <label for="ht">Trombosit (86000 - 478000/uL)</label>
+                                    <input type="text" class="form-control" name="trombosit" id="trombosit"
+                                        placeholder="Contoh : 87000">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -115,13 +136,6 @@
                                 <div class="col-md-12 kosong">
                                     <label for="kalsium">Kalsium (7.6 - 10.4 mg/dL)</label>
                                     <input type="text" class="form-control" name="kalsium" id="kalsium"
-                                        placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-12 kosong">
-                                    <label for="agd">AGD</label>
-                                    <input type="text" class="form-control" name="agd" id="agd"
                                         placeholder="Tanda Titik Sebagai Koma. contoh : 4.3">
                                 </div>
                             </div>
